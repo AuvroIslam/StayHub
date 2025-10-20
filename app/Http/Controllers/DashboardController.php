@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Property;
 use App\Models\Booking;
-use App\Models\Review;
-use App\Models\Message;
 
 /**
  * Dashboard Controller for Owner and Customer dashboards
@@ -24,14 +22,13 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Authorization
-        if (!$user->isOwner() && !$user->isAdmin()) {
+        if ($user->role !== 'owner' && $user->role !== 'admin') {
             abort(403, 'Access denied. Owner privileges required.');
         }
 
         // Get owner's properties with related data
         $properties = Property::where('user_id', $user->id)
-            ->withCount(['bookings', 'reviews'])
-            ->with('primaryImage')
+            ->withCount('bookings')
             ->get();
 
         // Get recent bookings for owner's properties
@@ -70,20 +67,6 @@ class DashboardController extends Controller
         ->whereIn('status', ['confirmed', 'completed'])
         ->sum('total_price');
 
-        // Get recent reviews
-        $recentReviews = Review::whereHas('property', function($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })
-        ->with(['user', 'property'])
-        ->orderBy('created_at', 'desc')
-        ->take(5)
-        ->get();
-
-        // Get unread messages
-        $unreadMessages = Message::where('receiver_id', $user->id)
-            ->where('is_read', false)
-            ->count();
-
         return view('owner.dashboard', compact(
             'properties',
             'recentBookings',
@@ -92,9 +75,7 @@ class DashboardController extends Controller
             'totalBookings',
             'confirmedBookings',
             'pendingBookings',
-            'totalEarnings',
-            'recentReviews',
-            'unreadMessages'
+            'totalEarnings'
         ));
     }
 
@@ -107,13 +88,13 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Authorization
-        if (!$user->isCustomer() && !$user->isAdmin()) {
+        if ($user->role !== 'customer' && $user->role !== 'admin') {
             abort(403, 'Access denied. Customer account required.');
         }
 
         // Get customer's bookings
         $bookings = Booking::where('user_id', $user->id)
-            ->with(['property.primaryImage', 'payment'])
+            ->with('property')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -127,37 +108,17 @@ class DashboardController extends Controller
 
         $pendingBookings = $bookings->where('status', 'pending');
 
-        // Get favorites
-        $favorites = $user->favorites()
-            ->with(['primaryImage', 'owner'])
-            ->get();
-
-        // Get user's reviews
-        $reviews = Review::where('user_id', $user->id)
-            ->with('property')
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-
         // Statistics
         $totalBookings = $bookings->count();
         $totalSpent = $bookings->whereIn('status', ['confirmed', 'completed'])
             ->sum('total_price');
 
-        // Get unread messages
-        $unreadMessages = Message::where('receiver_id', $user->id)
-            ->where('is_read', false)
-            ->count();
-
         return view('customer.dashboard', compact(
             'upcomingBookings',
             'pastBookings',
             'pendingBookings',
-            'favorites',
-            'reviews',
             'totalBookings',
-            'totalSpent',
-            'unreadMessages'
+            'totalSpent'
         ));
     }
 
@@ -169,7 +130,7 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Authorization
-        if (!$user->isAdmin()) {
+        if ($user->role !== 'admin') {
             abort(403, 'Access denied. Admin privileges required.');
         }
 
@@ -190,7 +151,7 @@ class DashboardController extends Controller
         $totalRevenue = Booking::whereIn('status', ['confirmed', 'completed'])->sum('total_price');
 
         // Recent activity
-        $recentProperties = Property::with(['owner', 'primaryImage'])
+        $recentProperties = Property::with('owner')
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
@@ -198,11 +159,6 @@ class DashboardController extends Controller
         $recentBookings = Booking::with(['property', 'customer'])
             ->orderBy('created_at', 'desc')
             ->take(10)
-            ->get();
-
-        $recentReviews = Review::with(['user', 'property'])
-            ->orderBy('created_at', 'desc')
-            ->take(5)
             ->get();
 
         return view('admin.dashboard', compact(
@@ -218,8 +174,7 @@ class DashboardController extends Controller
             'completedBookings',
             'totalRevenue',
             'recentProperties',
-            'recentBookings',
-            'recentReviews'
+            'recentBookings'
         ));
     }
 }

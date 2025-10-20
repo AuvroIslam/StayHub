@@ -11,21 +11,16 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('property_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // customer who booked
             $table->date('check_in');
             $table->date('check_out');
             $table->integer('guests');
-            $table->decimal('subtotal', 10, 2);
-            $table->decimal('cleaning_fee', 10, 2)->default(0);
-            $table->decimal('service_fee', 10, 2)->default(0);
-            $table->decimal('total_price', 10, 2);
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending');
-            $table->text('special_requests')->nullable();
+            $table->decimal('total_price', 10, 2); // total amount to be paid
+            $table->enum('status', ['pending', 'confirmed', 'rejected', 'cancelled', 'completed'])->default('pending');
             $table->timestamps();
             
             $table->index(['property_id', 'status']);
             $table->index(['user_id', 'status']);
-            $table->index(['check_in', 'check_out']);
         });
     }
 

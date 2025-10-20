@@ -23,6 +23,12 @@ Route::get('/', [PropertyController::class, 'featured'])->name('home');
 
 // Property Routes (READ operations are public)
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+
+// Redirect singular /property to plural /properties (common mistake fix)
+Route::get('/property/{id}', function($id) {
+    return redirect("/properties/{$id}", 301);
+});
+
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 
 // Authentication Routes (Using Laravel's built-in authentication)

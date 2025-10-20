@@ -12,7 +12,7 @@
                     <h1 class="text-3xl font-bold">Property Owner Dashboard</h1>
                     <p class="text-gray-600">Manage your properties and bookings</p>
                 </div>
-                <a href="/owner/properties/create" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-semibold">
+                <a href="{{ route('properties.create') }}" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-semibold">
                     <i class="fas fa-plus mr-2"></i> Add New Property
                 </a>
             </div>
@@ -220,7 +220,7 @@
                 <div class="bg-white rounded-lg shadow-md p-6 mb-8">
                     <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
                     <div class="space-y-3">
-                        <a href="/owner/properties/create" 
+                        <a href="{{ route('properties.create') }}" 
                            class="block bg-purple-600 text-white text-center py-3 rounded-lg hover:bg-purple-700 font-semibold">
                             <i class="fas fa-plus mr-2"></i> Add Property
                         </a>

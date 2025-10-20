@@ -20,12 +20,8 @@ class Booking extends Model
         'check_in',
         'check_out',
         'guests',
-        'subtotal',
-        'cleaning_fee',
-        'service_fee',
         'total_price',
         'status',
-        'special_requests',
     ];
 
     /**
@@ -36,9 +32,6 @@ class Booking extends Model
     protected $casts = [
         'check_in' => 'date',
         'check_out' => 'date',
-        'subtotal' => 'decimal:2',
-        'cleaning_fee' => 'decimal:2',
-        'service_fee' => 'decimal:2',
         'total_price' => 'decimal:2',
     ];
 
@@ -56,22 +49,6 @@ class Booking extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-     * Get the payment for this booking.
-     */
-    public function payment()
-    {
-        return $this->hasOne(Payment::class);
-    }
-
-    /**
-     * Get the review for this booking.
-     */
-    public function review()
-    {
-        return $this->hasOne(Review::class);
     }
 
     /**
