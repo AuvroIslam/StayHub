@@ -29,8 +29,6 @@ Route::get('/property/{id}', function($id) {
     return redirect("/properties/{$id}", 301);
 });
 
-Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
-
 // Authentication Routes (Using Laravel's built-in authentication)
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -75,3 +73,6 @@ Route::middleware(['auth'])->group(function () {
         // Profile update logic here
     })->name('profile.update');
 });
+
+// Property show route (must be last to not catch /properties/create)
+Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
