@@ -54,7 +54,7 @@
 </section>
 
 <!-- Property Types -->
-<section class="py-16" style="background-color: #FFF7DD;">
+<section class="py-16" style="background-color: #F5F5F0;">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Browse by Property Type</h2>
         
@@ -186,7 +186,7 @@
 </section>
 
 <!-- Why Choose Us -->
-<section class="py-16" style="background-color: #FFF7DD;">
+<section class="py-16" style="background-color: #F5F5F0;">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Why Choose StayHub?</h2>
         
@@ -231,7 +231,7 @@
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-4xl font-bold mb-4">Ready to Earn with Your Property?</h2>
         <p class="text-xl mb-8">Join thousands of property owners earning with StayHub</p>
-        <a href="/register?role=owner" class="bg-white px-8 py-4 rounded-lg font-semibold text-lg inline-block" style="color: #80A1BA; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#FFF7DD'" onmouseout="this.style.backgroundColor='white'">
+        <a href="/register?role=owner" class="bg-white px-8 py-4 rounded-lg font-semibold text-lg inline-block" style="color: #80A1BA; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#F5F5F0'" onmouseout="this.style.backgroundColor='white'">
             <i class="fas fa-plus-circle mr-2"></i> List Your Property
         </a>
     </div>

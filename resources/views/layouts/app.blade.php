@@ -18,7 +18,7 @@
             --primary: #80A1BA;
             --secondary: #91C4C3;
             --accent: #B4DEBD;
-            --background: #FFF7DD;
+            --background: #F5F5F0;
         }
         .hero-gradient {
             background: linear-gradient(135deg, #80A1BA 0%, #91C4C3 100%);
@@ -54,7 +54,7 @@
             background-color: #B4DEBD;
         }
         .bg-cream {
-            background-color: #FFF7DD;
+            background-color: #F5F5F0;
         }
     </style>
     
