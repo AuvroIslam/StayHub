@@ -16,24 +16,24 @@
                     <div class="col-span-1">
                         <label class="block text-sm font-medium mb-2 text-left">Location</label>
                         <input type="text" name="location" placeholder="Where to?" 
-                               class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                               class="w-full px-4 py-3 border rounded-lg outline-none" style="border-color: #80A1BA; focus:ring-2; focus:ring-color: #80A1BA;">
                     </div>
                     
                     <div class="col-span-1">
                         <label class="block text-sm font-medium mb-2 text-left">Check-in</label>
                         <input type="date" name="check_in" 
-                               class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                               class="w-full px-4 py-3 border rounded-lg outline-none" style="border-color: #80A1BA;">
                     </div>
                     
                     <div class="col-span-1">
                         <label class="block text-sm font-medium mb-2 text-left">Check-out</label>
                         <input type="date" name="check_out" 
-                               class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                               class="w-full px-4 py-3 border rounded-lg outline-none" style="border-color: #80A1BA;">
                     </div>
                     
                     <div class="col-span-1">
                         <label class="block text-sm font-medium mb-2 text-left">Guests</label>
-                        <select name="guests" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                        <select name="guests" class="w-full px-4 py-3 border rounded-lg outline-none" style="border-color: #80A1BA;">
                             <option value="1">1 Guest</option>
                             <option value="2">2 Guests</option>
                             <option value="3">3 Guests</option>
@@ -43,7 +43,7 @@
                     </div>
                     
                     <div class="col-span-1 md:col-span-4">
-                        <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold text-lg">
+                        <button type="submit" class="w-full text-white py-3 rounded-lg font-semibold text-lg" style="background-color: #91C4C3; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                             <i class="fas fa-search mr-2"></i> Search Properties
                         </button>
                     </div>
@@ -54,15 +54,15 @@
 </section>
 
 <!-- Property Types -->
-<section class="py-16">
+<section class="py-16" style="background-color: #FFF7DD;">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Browse by Property Type</h2>
         
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             <a href="/properties?type=apartment" class="group">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
-                    <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-                        <i class="fas fa-building text-6xl text-white"></i>
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #80A1BA 0%, #91C4C3 100%);">
+                        <img src="{{ asset('images/real-estate.png') }}" alt="Apartments" class="w-24 h-24 object-contain">
                     </div>
                     <div class="p-4 text-center">
                         <h3 class="font-semibold text-lg">Apartments</h3>
@@ -73,8 +73,8 @@
             
             <a href="/properties?type=house" class="group">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
-                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                        <i class="fas fa-home text-6xl text-white"></i>
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #91C4C3 0%, #B4DEBD 100%);">
+                        <img src="{{ asset('images/house.png') }}" alt="Houses" class="w-24 h-24 object-contain">
                     </div>
                     <div class="p-4 text-center">
                         <h3 class="font-semibold text-lg">Houses</h3>
@@ -85,8 +85,8 @@
             
             <a href="/properties?type=villa" class="group">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
-                    <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-                        <i class="fas fa-hotel text-6xl text-white"></i>
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #B4DEBD 0%, #91C4C3 100%);">
+                        <img src="{{ asset('images/home.png') }}" alt="Villas" class="w-24 h-24 object-contain">
                     </div>
                     <div class="p-4 text-center">
                         <h3 class="font-semibold text-lg">Villas</h3>
@@ -97,8 +97,8 @@
             
             <a href="/properties?type=studio" class="group">
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
-                    <div class="h-48 bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center">
-                        <i class="fas fa-door-open text-6xl text-white"></i>
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, #80A1BA 0%, #B4DEBD 100%);">
+                        <img src="{{ asset('images/studio.png') }}" alt="Studios" class="w-24 h-24 object-contain">
                     </div>
                     <div class="p-4 text-center">
                         <h3 class="font-semibold text-lg">Studios</h3>
@@ -115,7 +115,7 @@
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-12">
             <h2 class="text-3xl font-bold">Featured Properties</h2>
-            <a href="/properties" class="text-purple-600 hover:text-purple-700 font-semibold">
+            <a href="/properties" class="font-semibold" style="color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
                 View All <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
@@ -141,7 +141,7 @@
                     <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
                         <i class="far fa-heart"></i>
                     </button>
-                    <span class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="absolute top-4 left-4 text-white px-3 py-1 rounded-full text-sm font-semibold" style="background-color: #80A1BA;">
                         Featured
                     </span>
                 </div>
@@ -163,10 +163,10 @@
                     </div>
                     <div class="flex justify-between items-center border-t pt-3">
                         <div>
-                            <span class="text-2xl font-bold text-purple-600">${{ number_format($property->price_per_night, 0) }}</span>
+                            <span class="text-2xl font-bold" style="color: #80A1BA;">${{ number_format($property->price_per_night, 0) }}</span>
                             <span class="text-gray-600 text-sm">/night</span>
                         </div>
-                        <a href="{{ route('properties.show', $property->id) }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        <a href="{{ route('properties.show', $property->id) }}" class="text-white px-4 py-2 rounded-lg" style="background-color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                             View Details
                         </a>
                     </div>
@@ -176,7 +176,7 @@
             <div class="col-span-3 text-center py-12">
                 <i class="fas fa-home text-gray-400 text-6xl mb-4"></i>
                 <p class="text-gray-600 text-xl">No featured properties available at the moment.</p>
-                <a href="/properties" class="mt-4 inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700">
+                <a href="/properties" class="mt-4 inline-block text-white px-6 py-3 rounded-lg" style="background-color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                     Browse All Properties
                 </a>
             </div>
@@ -186,38 +186,38 @@
 </section>
 
 <!-- Why Choose Us -->
-<section class="py-16 bg-gray-100">
+<section class="py-16" style="background-color: #FFF7DD;">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Why Choose StayHub?</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="text-center">
-                <div class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-shield-alt text-3xl text-purple-600"></i>
+                <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: rgba(180, 222, 189, 0.3);">
+                    <i class="fas fa-shield-alt text-3xl" style="color: #80A1BA;"></i>
                 </div>
                 <h3 class="font-semibold text-xl mb-2">Secure Booking</h3>
                 <p class="text-gray-600">Safe and secure payment processing</p>
             </div>
             
             <div class="text-center">
-                <div class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-headset text-3xl text-purple-600"></i>
+                <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: rgba(145, 196, 195, 0.3);">
+                    <i class="fas fa-headset text-3xl" style="color: #80A1BA;"></i>
                 </div>
                 <h3 class="font-semibold text-xl mb-2">24/7 Support</h3>
                 <p class="text-gray-600">Round-the-clock customer service</p>
             </div>
             
             <div class="text-center">
-                <div class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-tags text-3xl text-purple-600"></i>
+                <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: rgba(180, 222, 189, 0.3);">
+                    <i class="fas fa-tags text-3xl" style="color: #80A1BA;"></i>
                 </div>
                 <h3 class="font-semibold text-xl mb-2">Best Prices</h3>
                 <p class="text-gray-600">Competitive rates guaranteed</p>
             </div>
             
             <div class="text-center">
-                <div class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-star text-3xl text-purple-600"></i>
+                <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: rgba(145, 196, 195, 0.3);">
+                    <i class="fas fa-star text-3xl" style="color: #80A1BA;"></i>
                 </div>
                 <h3 class="font-semibold text-xl mb-2">Verified Properties</h3>
                 <p class="text-gray-600">All properties are verified</p>
@@ -227,11 +227,11 @@
 </section>
 
 <!-- Become a Host CTA -->
-<section class="py-16 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+<section class="py-16 text-white" style="background: linear-gradient(135deg, #80A1BA 0%, #91C4C3 100%);">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-4xl font-bold mb-4">Ready to Earn with Your Property?</h2>
         <p class="text-xl mb-8">Join thousands of property owners earning with StayHub</p>
-        <a href="/register?role=owner" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 inline-block">
+        <a href="/register?role=owner" class="bg-white px-8 py-4 rounded-lg font-semibold text-lg inline-block" style="color: #80A1BA; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#FFF7DD'" onmouseout="this.style.backgroundColor='white'">
             <i class="fas fa-plus-circle mr-2"></i> List Your Property
         </a>
     </div>
