@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Page Header -->
-<div class="bg-gray-100 py-8">
+<div class="py-8" style="background-color: #F5F5F0;">
     <div class="container mx-auto px-4">
         <h1 class="text-3xl font-bold mb-4">Find Your Perfect Stay</h1>
         
@@ -14,24 +14,24 @@
                 <div>
                     <label class="block text-sm font-medium mb-2">Location</label>
                     <input type="text" name="location" placeholder="Where to?" 
-                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                           class="w-full px-4 py-2 border rounded-lg outline-none" style="border-color: #80A1BA;">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium mb-2">Check-in</label>
                     <input type="date" name="check_in" 
-                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                           class="w-full px-4 py-2 border rounded-lg outline-none" style="border-color: #80A1BA;">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium mb-2">Check-out</label>
                     <input type="date" name="check_out" 
-                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                           class="w-full px-4 py-2 border rounded-lg outline-none" style="border-color: #80A1BA;">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium mb-2">Property Type</label>
-                    <select name="property_type" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                    <select name="property_type" class="w-full px-4 py-2 border rounded-lg outline-none" style="border-color: #80A1BA;">
                         <option value="">All Types</option>
                         <option value="apartment" {{ request('property_type') == 'apartment' ? 'selected' : '' }}>Apartment</option>
                         <option value="house" {{ request('property_type') == 'house' ? 'selected' : '' }}>House</option>
@@ -42,7 +42,7 @@
                 
                 <div>
                     <label class="block text-sm font-medium mb-2">Price Range</label>
-                    <select name="price_range" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                    <select name="price_range" class="w-full px-4 py-2 border rounded-lg outline-none" style="border-color: #80A1BA;">
                         <option value="">Any Price</option>
                         <option value="0-50">$0 - $50</option>
                         <option value="50-100">$50 - $100</option>
@@ -52,7 +52,7 @@
                 </div>
                 
                 <div class="md:col-span-5">
-                    <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
+                    <button type="submit" class="text-white px-6 py-2 rounded-lg" style="background-color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                         <i class="fa-solid fa-magnifying-glass mr-2"></i> Search
                     </button>
                     <button type="button" class="ml-4 text-gray-600 hover:text-gray-800">
@@ -75,7 +75,7 @@
                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                 @endforeach
                 <select name="sort_by" onchange="document.getElementById('sortForm').submit()" 
-                        class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-600 outline-none">
+                        class="px-4 py-2 border rounded-lg outline-none" style="border-color: #80A1BA;">
                     <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>Newest</option>
                     <option value="price_low" {{ request('sort_by') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
                     <option value="price_high" {{ request('sort_by') == 'price_high' ? 'selected' : '' }}>Price: High to Low</option>
@@ -120,10 +120,10 @@
                     </div>
                     <div class="flex justify-between items-center border-t pt-3">
                         <div>
-                            <span class="text-2xl font-bold text-purple-600">${{ number_format($property->price_per_night, 0) }}</span>
+                            <span class="text-2xl font-bold" style="color: #80A1BA;">${{ number_format($property->price_per_night, 0) }}</span>
                             <span class="text-gray-600 text-sm">/night</span>
                         </div>
-                        <a href="{{ route('properties.show', $property) }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        <a href="{{ route('properties.show', $property) }}" class="text-white px-4 py-2 rounded-lg" style="background-color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                             View
                         </a>
                     </div>
