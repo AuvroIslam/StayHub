@@ -91,8 +91,13 @@
             <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
                 <div class="relative">
                     @if($property->image)
-                        <img src="{{ asset('storage/' . $property->image) }}" 
-                             alt="{{ $property->title }}" class="w-full h-64 object-cover">
+                        @if(str_starts_with($property->image, 'http'))
+                            <img src="{{ $property->image }}" 
+                                 alt="{{ $property->title }}" class="w-full h-64 object-cover">
+                        @else
+                            <img src="{{ asset('storage/' . $property->image) }}" 
+                                 alt="{{ $property->title }}" class="w-full h-64 object-cover">
+                        @endif
                     @else
                         <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500" 
                              alt="{{ $property->title }}" class="w-full h-64 object-cover">

@@ -1,14 +1,24 @@
 @extends('layouts.app')
 
-@section('title', 'Modern Apartment in City Center - StayHub')
+@section('title', $property->title . ' - StayHub')
 
 @section('content')
 <!-- Property Images Gallery -->
 <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-4 gap-2 h-96">
         <div class="col-span-2 row-span-2">
-            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" 
-                 alt="Main" class="w-full h-full object-cover rounded-l-lg">
+            @if($property->image)
+                @if(str_starts_with($property->image, 'http'))
+                    <img src="{{ $property->image }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover rounded-l-lg">
+                @else
+                    <img src="{{ asset('storage/' . $property->image) }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover rounded-l-lg">
+                @endif
+            @else
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" 
+                     alt="{{ $property->title }}" class="w-full h-full object-cover rounded-l-lg">
+            @endif
         </div>
         <div class="col-span-1">
             <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400" 
@@ -41,10 +51,10 @@
             <div class="mb-6">
                 <div class="flex justify-between items-start mb-2">
                     <div>
-                        <h1 class="text-3xl font-bold mb-2">Modern Apartment in City Center</h1>
+                        <h1 class="text-3xl font-bold mb-2">{{ $property->title }}</h1>
                         <p class="text-gray-600 flex items-center">
                             <i class="fa-solid fa-location-dot mr-2"></i> 
-                            123 Main Street, New York, NY 10001, USA
+                            {{ $property->address }}, {{ $property->city }}, {{ $property->state }} {{ $property->zip_code }}
                         </p>
                     </div>
                     <button class="text-gray-600 hover:text-red-500">
@@ -58,11 +68,11 @@
                         <span class="text-gray-500 ml-1">(124 reviews)</span>
                     </div>
                     <span>•</span>
-                    <span><i class="fa-solid fa-bed mr-1"></i> 2 Bedrooms</span>
+                    <span><i class="fa-solid fa-bed mr-1"></i> {{ $property->bedrooms }} Bedroom{{ $property->bedrooms > 1 ? 's' : '' }}</span>
                     <span>•</span>
-                    <span><i class="fa-solid fa-bath mr-1"></i> 2 Bathrooms</span>
+                    <span><i class="fa-solid fa-bath mr-1"></i> {{ $property->bathrooms }} Bathroom{{ $property->bathrooms > 1 ? 's' : '' }}</span>
                     <span>•</span>
-                    <span><i class="fa-solid fa-users mr-1"></i> 4 Guests</span>
+                    <span><i class="fa-solid fa-users mr-1"></i> {{ $property->max_guests }} Guests</span>
                 </div>
             </div>
             
@@ -70,11 +80,11 @@
             
             <!-- Host Info -->
             <div class="flex items-center mb-6">
-                <img src="https://ui-avatars.com/api/?name=John+Doe&size=64" 
-                     alt="Host" class="w-16 h-16 rounded-full mr-4">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($property->user->name) }}&size=64" 
+                     alt="{{ $property->user->name }}" class="w-16 h-16 rounded-full mr-4">
                 <div>
-                    <h3 class="font-semibold text-lg">Hosted by John Doe</h3>
-                    <p class="text-gray-600">Joined in 2020 • Superhost</p>
+                    <h3 class="font-semibold text-lg">Hosted by {{ $property->user->name }}</h3>
+                    <p class="text-gray-600">Property Owner • {{ ucfirst($property->user->role) }}</p>
                 </div>
             </div>
             
@@ -134,18 +144,8 @@
             <!-- Description -->
             <div class="mb-6">
                 <h2 class="text-2xl font-bold mb-4">About This Place</h2>
-                <p class="text-gray-700 leading-relaxed mb-4">
-                    Welcome to our beautiful modern apartment in the heart of downtown! This spacious 2-bedroom, 
-                    2-bathroom apartment offers stunning city views and all the amenities you need for a comfortable stay.
-                </p>
-                <p class="text-gray-700 leading-relaxed mb-4">
-                    The apartment features a fully equipped kitchen, comfortable living room with a smart TV, 
-                    high-speed WiFi, and a private balcony. Located just minutes from major attractions, 
-                    restaurants, and public transportation.
-                </p>
-                <p class="text-gray-700 leading-relaxed">
-                    Perfect for business travelers, families, or couples looking to explore the city. 
-                    The building offers 24/7 security, gym access, and free parking.
+                <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+                    {{ $property->description }}
                 </p>
             </div>
             
@@ -366,7 +366,7 @@
             <div class="bg-white rounded-lg shadow-xl p-6 sticky top-24">
                 <div class="mb-4">
                     <div class="flex items-baseline">
-                        <span class="text-3xl font-bold">$120</span>
+                        <span class="text-3xl font-bold">${{ number_format($property->price_per_night, 0) }}</span>
                         <span class="text-gray-600 ml-2">per night</span>
                     </div>
                     <div class="flex items-center mt-2">
@@ -391,10 +391,9 @@
                     <div class="border rounded-lg p-3">
                         <label class="block text-xs font-semibold mb-1">GUESTS</label>
                         <select name="guests" class="w-full text-sm outline-none">
-                            <option>1 guest</option>
-                            <option>2 guests</option>
-                            <option>3 guests</option>
-                            <option>4 guests</option>
+                            @for($i = 1; $i <= $property->max_guests; $i++)
+                                <option value="{{ $i }}">{{ $i }} guest{{ $i > 1 ? 's' : '' }}</option>
+                            @endfor
                         </select>
                     </div>
                     
