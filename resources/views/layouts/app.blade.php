@@ -9,8 +9,8 @@
     <!-- Tailwind CSS CDN for quick setup -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome 6.5.1 - Latest version with more icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <!-- Custom CSS -->
     <style>
@@ -40,7 +40,7 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="/" class="flex items-center space-x-2">
-                    <i class="fas fa-home text-3xl text-purple-600"></i>
+                    <i class="fa-solid fa-house-circle-check text-3xl text-purple-600"></i>
                     <span class="text-2xl font-bold text-gray-800">StayHub</span>
                 </a>
                 
@@ -56,7 +56,7 @@
                             <input type="date" class="bg-transparent outline-none text-sm">
                         </div>
                         <button class="ml-4 bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700">
-                            <i class="fas fa-search"></i>
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
                 </div>
@@ -77,45 +77,45 @@
                     @else
                         <div class="relative group">
                             <button class="flex items-center space-x-2 text-gray-700 hover:text-purple-600">
-                                <i class="fas fa-user-circle text-2xl"></i>
+                                <i class="fa-solid fa-circle-user text-2xl"></i>
                                 <span class="font-medium">{{ Auth::user()->name }}</span>
-                                <i class="fas fa-chevron-down text-sm"></i>
+                                <i class="fa-solid fa-chevron-down text-sm"></i>
                             </button>
                             
                             <!-- Dropdown Menu -->
                             <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                 @if(Auth::user()->role == 'owner')
                                     <a href="/owner/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                                        <i class="fa-solid fa-chart-line mr-2"></i> Dashboard
                                     </a>
                                     <a href="/owner/properties" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-building mr-2"></i> My Properties
+                                        <i class="fa-solid fa-building mr-2"></i> My Properties
                                     </a>
                                     <a href="/owner/bookings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-calendar-check mr-2"></i> Bookings
+                                        <i class="fa-solid fa-calendar-check mr-2"></i> Bookings
                                     </a>
                                 @else
                                     <a href="/customer/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                                        <i class="fa-solid fa-chart-line mr-2"></i> Dashboard
                                     </a>
                                     <a href="/customer/bookings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-calendar-check mr-2"></i> My Bookings
+                                        <i class="fa-solid fa-calendar-days mr-2"></i> My Bookings
                                     </a>
                                     <a href="/customer/favorites" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                        <i class="fas fa-heart mr-2"></i> Favorites
+                                        <i class="fa-solid fa-heart mr-2"></i> Favorites
                                     </a>
                                 @endif
                                 <a href="/messages" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-envelope mr-2"></i> Messages
+                                    <i class="fa-solid fa-envelope mr-2"></i> Messages
                                 </a>
                                 <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                    <i class="fas fa-user mr-2"></i> Profile
+                                    <i class="fa-solid fa-user mr-2"></i> Profile
                                 </a>
                                 <hr class="my-2">
                                 <form method="POST" action="/logout">
                                     @csrf
                                     <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                        <i class="fa-solid fa-right-from-bracket mr-2"></i> Logout
                                     </button>
                                 </form>
                             </div>

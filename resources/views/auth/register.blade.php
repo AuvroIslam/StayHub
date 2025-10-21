@@ -8,7 +8,7 @@
         <!-- Logo -->
         <div class="text-center mb-8">
             <a href="/" class="inline-flex items-center space-x-2">
-                <i class="fas fa-home text-4xl text-purple-600"></i>
+                <i class="fa-solid fa-house-circle-check text-4xl text-purple-600"></i>
                 <span class="text-3xl font-bold text-gray-800">StayHub</span>
             </a>
             <h2 class="mt-6 text-3xl font-bold text-gray-900">Create Your Account</h2>
@@ -25,7 +25,7 @@
                         <input type="radio" name="role" value="customer" class="peer sr-only" checked>
                         <div class="border-2 rounded-lg p-4 cursor-pointer peer-checked:border-purple-600 peer-checked:bg-purple-50 hover:border-purple-400">
                             <div class="flex flex-col items-center">
-                                <i class="fas fa-user text-3xl text-purple-600 mb-2"></i>
+                                <i class="fa-solid fa-user-tie text-3xl text-purple-600 mb-2"></i>
                                 <h3 class="font-semibold">Book Properties</h3>
                                 <p class="text-sm text-gray-600 text-center">Find and book amazing places</p>
                             </div>
@@ -36,7 +36,7 @@
                         <input type="radio" name="role" value="owner" class="peer sr-only">
                         <div class="border-2 rounded-lg p-4 cursor-pointer peer-checked:border-purple-600 peer-checked:bg-purple-50 hover:border-purple-400">
                             <div class="flex flex-col items-center">
-                                <i class="fas fa-building text-3xl text-purple-600 mb-2"></i>
+                                <i class="fa-solid fa-house-user text-3xl text-purple-600 mb-2"></i>
                                 <h3 class="font-semibold">List Properties</h3>
                                 <p class="text-sm text-gray-600 text-center">Rent out your property</p>
                             </div>
@@ -123,11 +123,11 @@
             <!-- Social Registration -->
             <div class="grid grid-cols-2 gap-4">
                 <button class="flex items-center justify-center px-4 py-3 border rounded-lg hover:bg-gray-50">
-                    <i class="fab fa-google text-red-500 mr-2"></i>
+                    <i class="fa-brands fa-google text-red-500 mr-2"></i>
                     <span class="font-semibold">Google</span>
                 </button>
                 <button class="flex items-center justify-center px-4 py-3 border rounded-lg hover:bg-gray-50">
-                    <i class="fab fa-facebook text-blue-600 mr-2"></i>
+                    <i class="fa-brands fa-facebook text-blue-600 mr-2"></i>
                     <span class="font-semibold">Facebook</span>
                 </button>
             </div>

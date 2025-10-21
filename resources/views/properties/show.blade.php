@@ -26,7 +26,7 @@
             <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=400" 
                  alt="Image 5" class="w-full h-full object-cover rounded-br-lg">
             <button class="absolute inset-0 bg-black bg-opacity-50 rounded-br-lg flex items-center justify-center text-white font-semibold">
-                <i class="fas fa-images mr-2"></i> Show All Photos
+                <i class="fa-solid fa-images mr-2"></i> Show All Photos
             </button>
         </div>
     </div>
@@ -43,26 +43,26 @@
                     <div>
                         <h1 class="text-3xl font-bold mb-2">Modern Apartment in City Center</h1>
                         <p class="text-gray-600 flex items-center">
-                            <i class="fas fa-map-marker-alt mr-2"></i> 
+                            <i class="fa-solid fa-location-dot mr-2"></i> 
                             123 Main Street, New York, NY 10001, USA
                         </p>
                     </div>
                     <button class="text-gray-600 hover:text-red-500">
-                        <i class="far fa-heart text-2xl"></i>
+                        <i class="fa-regular fa-heart text-2xl"></i>
                     </button>
                 </div>
                 <div class="flex items-center space-x-4 text-gray-700">
                     <div class="flex items-center">
-                        <i class="fas fa-star text-yellow-500 mr-1"></i>
+                        <i class="fa-solid fa-star text-yellow-500 mr-1"></i>
                         <span class="font-semibold">4.8</span>
                         <span class="text-gray-500 ml-1">(124 reviews)</span>
                     </div>
                     <span>•</span>
-                    <span><i class="fas fa-bed mr-1"></i> 2 Bedrooms</span>
+                    <span><i class="fa-solid fa-bed mr-1"></i> 2 Bedrooms</span>
                     <span>•</span>
-                    <span><i class="fas fa-bath mr-1"></i> 2 Bathrooms</span>
+                    <span><i class="fa-solid fa-bath mr-1"></i> 2 Bathrooms</span>
                     <span>•</span>
-                    <span><i class="fas fa-users mr-1"></i> 4 Guests</span>
+                    <span><i class="fa-solid fa-users mr-1"></i> 4 Guests</span>
                 </div>
             </div>
             

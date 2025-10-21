@@ -13,7 +13,7 @@
                     <p class="text-gray-600">Manage your bookings and favorites</p>
                 </div>
                 <a href="/properties" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-semibold">
-                    <i class="fas fa-search mr-2"></i> Browse Properties
+                    <i class="fa-solid fa-magnifying-glass mr-2"></i> Browse Properties
                 </a>
             </div>
         </div>
@@ -30,7 +30,7 @@
                         <p class="text-purple-600 text-sm mt-1">Next: Dec 15</p>
                     </div>
                     <div class="bg-purple-100 p-4 rounded-full">
-                        <i class="fas fa-suitcase text-2xl text-purple-600"></i>
+                        <i class="fa-solid fa-suitcase text-2xl text-purple-600"></i>
                     </div>
                 </div>
             </div>
@@ -41,11 +41,11 @@
                         <p class="text-gray-600 text-sm font-semibold">Total Bookings</p>
                         <h3 class="text-3xl font-bold mt-2">15</h3>
                         <p class="text-green-600 text-sm mt-1">
-                            <i class="fas fa-arrow-up mr-1"></i> 3 this year
+                            <i class="fa-solid fa-arrow-up mr-1"></i> 3 this year
                         </p>
                     </div>
                     <div class="bg-blue-100 p-4 rounded-full">
-                        <i class="fas fa-calendar-check text-2xl text-blue-600"></i>
+                        <i class="fa-solid fa-calendar-check text-2xl text-blue-600"></i>
                     </div>
                 </div>
             </div>

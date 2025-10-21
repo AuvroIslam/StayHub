@@ -8,7 +8,7 @@
         <!-- Logo -->
         <div class="text-center mb-8">
             <a href="/" class="inline-flex items-center space-x-2">
-                <i class="fas fa-home text-4xl text-purple-600"></i>
+                <i class="fa-solid fa-house-circle-check text-4xl text-purple-600"></i>
                 <span class="text-3xl font-bold text-gray-800">StayHub</span>
             </a>
             <h2 class="mt-6 text-3xl font-bold text-gray-900">Welcome Back</h2>
@@ -63,11 +63,11 @@
             <!-- Social Login -->
             <div class="grid grid-cols-2 gap-4">
                 <button class="flex items-center justify-center px-4 py-3 border rounded-lg hover:bg-gray-50">
-                    <i class="fab fa-google text-red-500 mr-2"></i>
+                    <i class="fa-brands fa-google text-red-500 mr-2"></i>
                     <span class="font-semibold">Google</span>
                 </button>
                 <button class="flex items-center justify-center px-4 py-3 border rounded-lg hover:bg-gray-50">
-                    <i class="fab fa-facebook text-blue-600 mr-2"></i>
+                    <i class="fa-brands fa-facebook text-blue-600 mr-2"></i>
                     <span class="font-semibold">Facebook</span>
                 </button>
             </div>

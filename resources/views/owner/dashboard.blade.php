@@ -13,7 +13,7 @@
                     <p class="text-gray-600">Manage your properties and bookings</p>
                 </div>
                 <a href="{{ route('properties.create') }}" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-semibold">
-                    <i class="fas fa-plus mr-2"></i> Add New Property
+                    <i class="fa-solid fa-plus mr-2"></i> Add New Property
                 </a>
             </div>
         </div>
@@ -28,11 +28,11 @@
                         <p class="text-gray-600 text-sm font-semibold">Total Properties</p>
                         <h3 class="text-3xl font-bold mt-2">12</h3>
                         <p class="text-green-600 text-sm mt-1">
-                            <i class="fas fa-arrow-up mr-1"></i> 2 new
+                            <i class="fa-solid fa-arrow-up mr-1"></i> 2 new
                         </p>
                     </div>
                     <div class="bg-purple-100 p-4 rounded-full">
-                        <i class="fas fa-building text-2xl text-purple-600"></i>
+                        <i class="fa-solid fa-building text-2xl text-purple-600"></i>
                     </div>
                 </div>
             </div>
@@ -43,11 +43,11 @@
                         <p class="text-gray-600 text-sm font-semibold">Active Bookings</p>
                         <h3 class="text-3xl font-bold mt-2">28</h3>
                         <p class="text-green-600 text-sm mt-1">
-                            <i class="fas fa-arrow-up mr-1"></i> 5 this week
+                            <i class="fa-solid fa-arrow-up mr-1"></i> 5 this week
                         </p>
                     </div>
                     <div class="bg-blue-100 p-4 rounded-full">
-                        <i class="fas fa-calendar-check text-2xl text-blue-600"></i>
+                        <i class="fa-solid fa-calendar-check text-2xl text-blue-600"></i>
                     </div>
                 </div>
             </div>

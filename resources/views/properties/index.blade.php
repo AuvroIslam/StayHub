@@ -53,10 +53,10 @@
                 
                 <div class="md:col-span-5">
                     <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
-                        <i class="fas fa-search mr-2"></i> Search
+                        <i class="fa-solid fa-magnifying-glass mr-2"></i> Search
                     </button>
                     <button type="button" class="ml-4 text-gray-600 hover:text-gray-800">
-                        <i class="fas fa-sliders-h mr-2"></i> More Filters
+                        <i class="fa-solid fa-sliders mr-2"></i> More Filters
                     </button>
                 </div>
             </form>
@@ -98,7 +98,7 @@
                              alt="{{ $property->title }}" class="w-full h-64 object-cover">
                     @endif
                     <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
-                        <i class="far fa-heart"></i>
+                        <i class="fa-regular fa-heart"></i>
                     </button>
                 </div>
                 <div class="p-4">
@@ -106,12 +106,12 @@
                         <h3 class="font-semibold text-lg">{{ $property->title }}</h3>
                     </div>
                     <p class="text-gray-600 text-sm mb-2">
-                        <i class="fas fa-map-marker-alt mr-1"></i> {{ $property->city }}{{ $property->state ? ', ' . $property->state : '' }}
+                        <i class="fa-solid fa-location-dot mr-1"></i> {{ $property->city }}{{ $property->state ? ', ' . $property->state : '' }}
                     </p>
                     <div class="flex items-center text-gray-600 text-sm mb-3 space-x-4">
-                        <span><i class="fas fa-bed mr-1"></i> {{ $property->bedrooms }} Beds</span>
-                        <span><i class="fas fa-bath mr-1"></i> {{ $property->bathrooms }} Baths</span>
-                        <span><i class="fas fa-users mr-1"></i> {{ $property->max_guests }} Guests</span>
+                        <span><i class="fa-solid fa-bed mr-1"></i> {{ $property->bedrooms }} Beds</span>
+                        <span><i class="fa-solid fa-bath mr-1"></i> {{ $property->bathrooms }} Baths</span>
+                        <span><i class="fa-solid fa-users mr-1"></i> {{ $property->max_guests }} Guests</span>
                     </div>
                     <div class="flex justify-between items-center border-t pt-3">
                         <div>
@@ -128,7 +128,7 @@
         </div>
     @else
         <div class="text-center py-12">
-            <i class="fas fa-home text-6xl text-gray-300 mb-4"></i>
+            <i class="fa-solid fa-house-circle-xmark text-6xl text-gray-300 mb-4"></i>
             <h3 class="text-xl font-semibold text-gray-600 mb-2">No Properties Found</h3>
             <p class="text-gray-500">Try adjusting your filters or search criteria.</p>
         </div>
