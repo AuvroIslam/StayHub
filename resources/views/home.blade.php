@@ -121,11 +121,23 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Property Card 1 -->
+            @forelse($properties as $property)
+            <!-- Dynamic Property Card -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
                 <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500" 
-                         alt="Modern Apartment" class="w-full h-64 object-cover">
+                    @if($property->image)
+                        @if(str_starts_with($property->image, 'http'))
+                            <img src="{{ $property->image }}" 
+                                 alt="{{ $property->title }}" class="w-full h-64 object-cover">
+                        @else
+                            <img src="{{ asset('storage/' . $property->image) }}" 
+                                 alt="{{ $property->title }}" class="w-full h-64 object-cover">
+                        @endif
+                    @else
+                        <div class="w-full h-64 bg-gray-300 flex items-center justify-center">
+                            <i class="fas fa-image text-gray-400 text-4xl"></i>
+                        </div>
+                    @endif
                     <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
                         <i class="far fa-heart"></i>
                     </button>
@@ -135,108 +147,40 @@
                 </div>
                 <div class="p-4">
                     <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-semibold text-lg">Modern Apartment in City Center</h3>
+                        <h3 class="font-semibold text-lg">{{ Str::limit($property->title, 30) }}</h3>
                         <div class="flex items-center text-yellow-500">
                             <i class="fas fa-star"></i>
-                            <span class="ml-1 text-gray-700 font-semibold">4.8</span>
+                            <span class="ml-1 text-gray-700 font-semibold">{{ number_format($property->rating ?? 4.8, 1) }}</span>
                         </div>
                     </div>
                     <p class="text-gray-600 text-sm mb-2">
-                        <i class="fas fa-map-marker-alt mr-1"></i> New York, USA
+                        <i class="fas fa-map-marker-alt mr-1"></i> {{ $property->city }}, {{ $property->state }}
                     </p>
                     <div class="flex items-center text-gray-600 text-sm mb-3 space-x-4">
-                        <span><i class="fas fa-bed mr-1"></i> 2 Beds</span>
-                        <span><i class="fas fa-bath mr-1"></i> 2 Baths</span>
-                        <span><i class="fas fa-users mr-1"></i> 4 Guests</span>
+                        <span><i class="fas fa-bed mr-1"></i> {{ $property->bedrooms }} Beds</span>
+                        <span><i class="fas fa-bath mr-1"></i> {{ $property->bathrooms }} Baths</span>
+                        <span><i class="fas fa-users mr-1"></i> {{ $property->max_guests }} Guests</span>
                     </div>
                     <div class="flex justify-between items-center border-t pt-3">
                         <div>
-                            <span class="text-2xl font-bold text-purple-600">$120</span>
+                            <span class="text-2xl font-bold text-purple-600">${{ number_format($property->price_per_night, 0) }}</span>
                             <span class="text-gray-600 text-sm">/night</span>
                         </div>
-                        <a href="/property/1" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                        <a href="{{ route('properties.show', $property->id) }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
                             View Details
                         </a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Property Card 2 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500" 
-                         alt="Luxury Villa" class="w-full h-64 object-cover">
-                    <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </div>
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-semibold text-lg">Luxury Beach Villa</h3>
-                        <div class="flex items-center text-yellow-500">
-                            <i class="fas fa-star"></i>
-                            <span class="ml-1 text-gray-700 font-semibold">4.9</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-2">
-                        <i class="fas fa-map-marker-alt mr-1"></i> Miami, Florida
-                    </p>
-                    <div class="flex items-center text-gray-600 text-sm mb-3 space-x-4">
-                        <span><i class="fas fa-bed mr-1"></i> 4 Beds</span>
-                        <span><i class="fas fa-bath mr-1"></i> 3 Baths</span>
-                        <span><i class="fas fa-users mr-1"></i> 8 Guests</span>
-                    </div>
-                    <div class="flex justify-between items-center border-t pt-3">
-                        <div>
-                            <span class="text-2xl font-bold text-purple-600">$350</span>
-                            <span class="text-gray-600 text-sm">/night</span>
-                        </div>
-                        <a href="/property/2" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
-                            View Details
-                        </a>
-                    </div>
-                </div>
+            @empty
+            <div class="col-span-3 text-center py-12">
+                <i class="fas fa-home text-gray-400 text-6xl mb-4"></i>
+                <p class="text-gray-600 text-xl">No featured properties available at the moment.</p>
+                <a href="/properties" class="mt-4 inline-block bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700">
+                    Browse All Properties
+                </a>
             </div>
-            
-            <!-- Property Card 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale property-card">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500" 
-                         alt="Cozy Studio" class="w-full h-64 object-cover">
-                    <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
-                        <i class="far fa-heart"></i>
-                    </button>
-                    <span class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        New
-                    </span>
-                </div>
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-semibold text-lg">Cozy Downtown Studio</h3>
-                        <div class="flex items-center text-yellow-500">
-                            <i class="fas fa-star"></i>
-                            <span class="ml-1 text-gray-700 font-semibold">4.7</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-2">
-                        <i class="fas fa-map-marker-alt mr-1"></i> San Francisco, CA
-                    </p>
-                    <div class="flex items-center text-gray-600 text-sm mb-3 space-x-4">
-                        <span><i class="fas fa-bed mr-1"></i> 1 Bed</span>
-                        <span><i class="fas fa-bath mr-1"></i> 1 Bath</span>
-                        <span><i class="fas fa-users mr-1"></i> 2 Guests</span>
-                    </div>
-                    <div class="flex justify-between items-center border-t pt-3">
-                        <div>
-                            <span class="text-2xl font-bold text-purple-600">$85</span>
-                            <span class="text-gray-600 text-sm">/night</span>
-                        </div>
-                        <a href="/property/3" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>
