@@ -138,9 +138,6 @@
                             <i class="fas fa-image text-gray-400 text-4xl"></i>
                         </div>
                     @endif
-                    <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
-                        <i class="far fa-heart"></i>
-                    </button>
                     <span class="absolute top-4 left-4 text-white px-3 py-1 rounded-full text-sm font-semibold" style="background-color: #80A1BA;">
                         Featured
                     </span>

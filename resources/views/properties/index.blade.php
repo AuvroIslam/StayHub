@@ -102,9 +102,6 @@
                         <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500" 
                              alt="{{ $property->title }}" class="w-full h-64 object-cover">
                     @endif
-                    <button class="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-red-500 hover:text-white transition">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
                 </div>
                 <div class="p-4">
                     <div class="flex justify-between items-start mb-2">

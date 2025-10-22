@@ -3,7 +3,7 @@
 @section('title', 'Owner Dashboard - StayHub')
 
 @section('content')
-<div class="bg-gray-100 min-h-screen">
+<div class="min-h-screen" style="background-color: #F5F5F0;">
     <!-- Dashboard Header -->
     <div class="bg-white shadow-sm">
         <div class="container mx-auto px-4 py-6">
@@ -12,7 +12,7 @@
                     <h1 class="text-3xl font-bold">Property Owner Dashboard</h1>
                     <p class="text-gray-600">Manage your properties and bookings</p>
                 </div>
-                <a href="{{ route('properties.create') }}" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-semibold">
+                <a href="{{ route('properties.create') }}" class="text-white px-6 py-3 rounded-lg font-semibold" style="background-color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                     <i class="fa-solid fa-plus mr-2"></i> Add New Property
                 </a>
             </div>
@@ -20,19 +20,36 @@
     </div>
     
     <div class="container mx-auto px-4 py-8">
+        <!-- Success/Error Messages -->
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                <i class="fas fa-check-circle mr-2"></i>
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                {{ session('error') }}
+            </div>
+        @endif
+        
         <!-- Stats Overview -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-semibold">Total Properties</p>
-                        <h3 class="text-3xl font-bold mt-2">12</h3>
+                        <h3 class="text-3xl font-bold mt-2">{{ $properties->count() }}</h3>
+                        @if($properties->count() > 0)
                         <p class="text-green-600 text-sm mt-1">
-                            <i class="fa-solid fa-arrow-up mr-1"></i> 2 new
+                            <i class="fa-solid fa-check-circle mr-1"></i> Active
                         </p>
+                        @endif
                     </div>
-                    <div class="bg-purple-100 p-4 rounded-full">
-                        <i class="fa-solid fa-building text-2xl text-purple-600"></i>
+                    <div class="p-4 rounded-full" style="background-color: rgba(180, 222, 189, 0.3);">
+                        <i class="fa-solid fa-building text-2xl" style="color: #80A1BA;"></i>
                     </div>
                 </div>
             </div>
@@ -41,13 +58,15 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm font-semibold">Active Bookings</p>
-                        <h3 class="text-3xl font-bold mt-2">28</h3>
+                        <h3 class="text-3xl font-bold mt-2">{{ $totalBookings }}</h3>
+                        @if($totalBookings > 0)
                         <p class="text-green-600 text-sm mt-1">
-                            <i class="fa-solid fa-arrow-up mr-1"></i> 5 this week
+                            <i class="fa-solid fa-calendar-check mr-1"></i> Total
                         </p>
+                        @endif
                     </div>
-                    <div class="bg-blue-100 p-4 rounded-full">
-                        <i class="fa-solid fa-calendar-check text-2xl text-blue-600"></i>
+                    <div class="p-4 rounded-full" style="background-color: rgba(145, 196, 195, 0.3);">
+                        <i class="fa-solid fa-calendar-check text-2xl" style="color: #80A1BA;"></i>
                     </div>
                 </div>
             </div>
@@ -55,14 +74,14 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-600 text-sm font-semibold">Monthly Earnings</p>
-                        <h3 class="text-3xl font-bold mt-2">$8,450</h3>
-                        <p class="text-green-600 text-sm mt-1">
-                            <i class="fas fa-arrow-up mr-1"></i> 12% increase
+                        <p class="text-gray-600 text-sm font-semibold">Total Earnings</p>
+                        <h3 class="text-3xl font-bold mt-2">${{ number_format($totalEarnings, 0) }}</h3>
+                        <p class="text-gray-500 text-sm mt-1">
+                            <i class="fas fa-dollar-sign mr-1"></i> All time
                         </p>
                     </div>
-                    <div class="bg-green-100 p-4 rounded-full">
-                        <i class="fas fa-dollar-sign text-2xl text-green-600"></i>
+                    <div class="p-4 rounded-full" style="background-color: rgba(180, 222, 189, 0.3);">
+                        <i class="fas fa-dollar-sign text-2xl" style="color: #80A1BA;"></i>
                     </div>
                 </div>
             </div>
@@ -70,14 +89,14 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-gray-600 text-sm font-semibold">Average Rating</p>
-                        <h3 class="text-3xl font-bold mt-2">4.8</h3>
-                        <p class="text-yellow-500 text-sm mt-1">
-                            <i class="fas fa-star mr-1"></i> 156 reviews
+                        <p class="text-gray-600 text-sm font-semibold">Properties Listed</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $properties->count() }}</h3>
+                        <p class="text-gray-500 text-sm mt-1">
+                            <i class="fas fa-home mr-1"></i> Total
                         </p>
                     </div>
-                    <div class="bg-yellow-100 p-4 rounded-full">
-                        <i class="fas fa-star text-2xl text-yellow-600"></i>
+                    <div class="p-4 rounded-full" style="background-color: rgba(145, 196, 195, 0.3);">
+                        <i class="fas fa-home text-2xl" style="color: #80A1BA;"></i>
                     </div>
                 </div>
             </div>
@@ -89,128 +108,110 @@
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Recent Bookings</h2>
-                        <a href="/owner/bookings" class="text-purple-600 hover:text-purple-700 font-semibold">
+                        <a href="/owner/bookings" class="font-semibold" style="color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
                             View All <i class="fas fa-arrow-right ml-1"></i>
                         </a>
                     </div>
                     
+                    @if($recentBookings->count() > 0)
                     <div class="space-y-4">
+                        @foreach($recentBookings->take(3) as $booking)
                         <div class="border rounded-lg p-4 hover:bg-gray-50">
                             <div class="flex justify-between items-start">
                                 <div class="flex-1">
-                                    <h3 class="font-semibold text-lg">Modern Apartment in City Center</h3>
+                                    <h3 class="font-semibold text-lg">{{ $booking->property->title }}</h3>
                                     <p class="text-gray-600 text-sm mt-1">
-                                        <i class="fas fa-user mr-1"></i> Sarah Johnson
+                                        <i class="fas fa-user mr-1"></i> {{ $booking->customer->name }}
                                     </p>
                                     <p class="text-gray-600 text-sm">
-                                        <i class="fas fa-calendar mr-1"></i> Dec 15 - Dec 20, 2024
+                                        <i class="fas fa-calendar mr-1"></i> {{ $booking->check_in->format('M d') }} - {{ $booking->check_out->format('M d, Y') }}
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold">
-                                        Confirmed
+                                    <span class="px-3 py-1 rounded-full text-sm font-semibold
+                                        {{ $booking->status == 'confirmed' ? 'bg-green-100 text-green-600' : '' }}
+                                        {{ $booking->status == 'pending' ? 'bg-yellow-100 text-yellow-600' : '' }}
+                                        {{ $booking->status == 'completed' ? 'bg-blue-100 text-blue-600' : '' }}
+                                        {{ $booking->status == 'cancelled' ? 'bg-red-100 text-red-600' : '' }}">
+                                        {{ ucfirst($booking->status) }}
                                     </span>
-                                    <p class="font-bold text-lg mt-2">$600</p>
+                                    <p class="font-bold text-lg mt-2" style="color: #80A1BA;">${{ number_format($booking->total_price, 0) }}</p>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="border rounded-lg p-4 hover:bg-gray-50">
-                            <div class="flex justify-between items-start">
-                                <div class="flex-1">
-                                    <h3 class="font-semibold text-lg">Luxury Beach Villa</h3>
-                                    <p class="text-gray-600 text-sm mt-1">
-                                        <i class="fas fa-user mr-1"></i> Mike Thompson
-                                    </p>
-                                    <p class="text-gray-600 text-sm">
-                                        <i class="fas fa-calendar mr-1"></i> Dec 22 - Dec 28, 2024
-                                    </p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm font-semibold">
-                                        Pending
-                                    </span>
-                                    <p class="font-bold text-lg mt-2">$2,100</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="border rounded-lg p-4 hover:bg-gray-50">
-                            <div class="flex justify-between items-start">
-                                <div class="flex-1">
-                                    <h3 class="font-semibold text-lg">Cozy Studio Downtown</h3>
-                                    <p class="text-gray-600 text-sm mt-1">
-                                        <i class="fas fa-user mr-1"></i> Emily Davis
-                                    </p>
-                                    <p class="text-gray-600 text-sm">
-                                        <i class="fas fa-calendar mr-1"></i> Dec 18 - Dec 21, 2024
-                                    </p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold">
-                                        Confirmed
-                                    </span>
-                                    <p class="font-bold text-lg mt-2">$255</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+                    @else
+                    <div class="text-center py-12">
+                        <i class="fas fa-calendar-xmark text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-600">No bookings yet</p>
+                    </div>
+                    @endif
                 </div>
                 
                 <!-- My Properties -->
                 <div class="bg-white rounded-lg shadow-md p-6 mt-8">
-                    <div class="flex justify-between items-center mb-6">
+                    <div class="mb-6">
                         <h2 class="text-2xl font-bold">My Properties</h2>
-                        <a href="/owner/properties" class="text-purple-600 hover:text-purple-700 font-semibold">
-                            View All <i class="fas fa-arrow-right ml-1"></i>
-                        </a>
                     </div>
                     
+                    @if($properties->count() > 0)
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach($properties->take(4) as $property)
                         <div class="border rounded-lg overflow-hidden hover:shadow-lg transition">
-                            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=300" 
-                                 alt="Property" class="w-full h-40 object-cover">
+                            @if($property->image)
+                                @if(str_starts_with($property->image, 'http'))
+                                    <img src="{{ $property->image }}" 
+                                         alt="{{ $property->title }}" class="w-full h-40 object-cover">
+                                @else
+                                    <img src="{{ asset('storage/' . $property->image) }}" 
+                                         alt="{{ $property->title }}" class="w-full h-40 object-cover">
+                                @endif
+                            @else
+                                <div class="w-full h-40 bg-gray-300 flex items-center justify-center">
+                                    <i class="fas fa-image text-gray-400 text-3xl"></i>
+                                </div>
+                            @endif
                             <div class="p-4">
-                                <h3 class="font-semibold mb-2">Modern Apartment</h3>
+                                <h3 class="font-semibold mb-2">{{ Str::limit($property->title, 25) }}</h3>
                                 <p class="text-sm text-gray-600 mb-2">
-                                    <i class="fas fa-map-marker-alt mr-1"></i> New York
+                                    <i class="fas fa-map-marker-alt mr-1"></i> {{ $property->city }}, {{ $property->state }}
                                 </p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-purple-600 font-bold">$120/night</span>
+                                    <span class="font-bold" style="color: #80A1BA;">${{ number_format($property->price_per_night, 0) }}/night</span>
                                     <div class="flex space-x-2">
-                                        <button class="text-blue-600 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="text-red-600 hover:text-red-700">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <a href="{{ route('properties.edit', $property) }}" 
+                                           class="inline-flex items-center px-2 py-1 rounded text-sm font-medium transition-colors hover:bg-blue-100" 
+                                           style="color: #80A1BA;"
+                                           title="Edit Property">
+                                            <i class="fas fa-edit mr-1"></i>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </a>
+                                        <form action="{{ route('properties.destroy', $property) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this property? This action cannot be undone.')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                   class="inline-flex items-center px-3 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-all duration-200"
+                                                   title="Delete Property">
+                                                <i class="fas fa-trash mr-1"></i>
+                                                <span class="hidden sm:inline">Delete</span>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="border rounded-lg overflow-hidden hover:shadow-lg transition">
-                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=300" 
-                                 alt="Property" class="w-full h-40 object-cover">
-                            <div class="p-4">
-                                <h3 class="font-semibold mb-2">Beach Villa</h3>
-                                <p class="text-sm text-gray-600 mb-2">
-                                    <i class="fas fa-map-marker-alt mr-1"></i> Miami
-                                </p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-purple-600 font-bold">$350/night</span>
-                                    <div class="flex space-x-2">
-                                        <button class="text-blue-600 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="text-red-600 hover:text-red-700">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+                    @else
+                    <div class="text-center py-12">
+                        <i class="fas fa-home text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-600 mb-4">No properties listed yet</p>
+                        <a href="{{ route('properties.create') }}" class="text-white px-6 py-3 rounded-lg inline-block" style="background-color: #80A1BA;">
+                            <i class="fas fa-plus mr-2"></i> Add Your First Property
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </div>
             
@@ -221,80 +222,71 @@
                     <h2 class="text-xl font-bold mb-4">Quick Actions</h2>
                     <div class="space-y-3">
                         <a href="{{ route('properties.create') }}" 
-                           class="block bg-purple-600 text-white text-center py-3 rounded-lg hover:bg-purple-700 font-semibold">
+                           class="block text-white text-center py-3 rounded-lg font-semibold" style="background-color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                             <i class="fas fa-plus mr-2"></i> Add Property
                         </a>
                         <a href="/owner/bookings" 
-                           class="block border-2 border-purple-600 text-purple-600 text-center py-3 rounded-lg hover:bg-purple-50 font-semibold">
+                           class="block border-2 text-center py-3 rounded-lg font-semibold" style="border-color: #80A1BA; color: #80A1BA; transition: background 0.3s;" onmouseover="this.style.backgroundColor='rgba(180, 222, 189, 0.2)'" onmouseout="this.style.backgroundColor=''">
                             <i class="fas fa-calendar mr-2"></i> View Bookings
                         </a>
-                        <a href="/owner/earnings" 
+                        <a href="/profile" 
                            class="block border-2 border-gray-300 text-gray-700 text-center py-3 rounded-lg hover:bg-gray-50 font-semibold">
-                            <i class="fas fa-chart-line mr-2"></i> Earnings Report
+                            <i class="fas fa-user mr-2"></i> My Profile
                         </a>
                     </div>
                 </div>
                 
-                <!-- Earnings Overview -->
+                <!-- Earnings Summary -->
                 <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <h2 class="text-xl font-bold mb-4">Earnings Overview</h2>
+                    <h2 class="text-xl font-bold mb-4">Earnings Summary</h2>
                     <div class="space-y-4">
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-gray-600">This Month</span>
-                                <span class="font-bold">$8,450</span>
+                                <span class="text-gray-600">Total Earnings</span>
+                                <span class="font-bold" style="color: #80A1BA;">${{ number_format($totalEarnings, 0) }}</span>
                             </div>
                             <div class="bg-gray-200 h-2 rounded-full">
-                                <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+                                <div class="h-2 rounded-full" style="width: {{ $totalEarnings > 0 ? '100' : '0' }}%; background-color: #80A1BA;"></div>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-gray-600">Total Earnings</span>
-                                <span class="font-bold">$52,380</span>
+                                <span class="text-gray-600">Bookings</span>
+                                <span class="font-bold">{{ $totalBookings }}</span>
                             </div>
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <span class="text-gray-600">Pending Payout</span>
-                                <span class="font-bold text-yellow-600">$2,150</span>
+                                <span class="text-gray-600">Properties</span>
+                                <span class="font-bold">{{ $totalProperties }}</span>
                             </div>
                         </div>
-                        <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 font-semibold mt-4">
-                            Request Payout
-                        </button>
                     </div>
                 </div>
                 
-                <!-- Recent Messages -->
+                <!-- Property Status -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-xl font-bold">Messages</h2>
-                        <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">3</span>
-                    </div>
+                    <h2 class="text-xl font-bold mb-4">Property Status</h2>
+                    @if($properties->count() > 0)
                     <div class="space-y-3">
-                        <div class="flex items-start hover:bg-gray-50 p-2 rounded cursor-pointer">
-                            <img src="https://ui-avatars.com/api/?name=Sarah+J&size=40" 
-                                 alt="User" class="w-10 h-10 rounded-full mr-3">
-                            <div class="flex-1">
-                                <h4 class="font-semibold text-sm">Sarah Johnson</h4>
-                                <p class="text-xs text-gray-600">Question about check-in time</p>
-                                <span class="text-xs text-gray-500">2 hours ago</span>
+                        @foreach($properties->take(3) as $property)
+                        <div class="flex items-center justify-between p-3 rounded" style="background-color: rgba(180, 222, 189, 0.1);">
+                            <div>
+                                <h4 class="font-semibold text-sm">{{ Str::limit($property->title, 20) }}</h4>
+                                <p class="text-xs text-gray-600">{{ $property->city }}, {{ $property->state }}</p>
                             </div>
+                            <span class="px-2 py-1 rounded text-xs font-semibold" style="background-color: #B4DEBD; color: #2d5a3d;">
+                                Active
+                            </span>
                         </div>
-                        <div class="flex items-start hover:bg-gray-50 p-2 rounded cursor-pointer">
-                            <img src="https://ui-avatars.com/api/?name=Mike+T&size=40" 
-                                 alt="User" class="w-10 h-10 rounded-full mr-3">
-                            <div class="flex-1">
-                                <h4 class="font-semibold text-sm">Mike Thompson</h4>
-                                <p class="text-xs text-gray-600">Thanks for the quick response!</p>
-                                <span class="text-xs text-gray-500">5 hours ago</span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <a href="/messages" class="block text-center text-purple-600 hover:text-purple-700 font-semibold mt-4">
-                        View All Messages
-                    </a>
+                    @else
+                    <div class="text-center py-8">
+                        <i class="fas fa-home text-4xl text-gray-300 mb-2"></i>
+                        <p class="text-gray-600 text-sm">No properties yet</p>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

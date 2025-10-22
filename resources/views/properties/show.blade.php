@@ -6,38 +6,104 @@
 <!-- Property Images Gallery -->
 <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-4 gap-2 h-96">
+        <!-- Main Image (Left Side - 2 columns, 2 rows) -->
         <div class="col-span-2 row-span-2">
-            @if($property->image)
-                @if(str_starts_with($property->image, 'http'))
-                    <img src="{{ $property->image }}" 
+            @php
+                $mainImage = $property->getImageByIndex(1);
+            @endphp
+            @if($mainImage)
+                @if(str_starts_with($mainImage, 'http'))
+                    <img src="{{ $mainImage }}" 
                          alt="{{ $property->title }}" class="w-full h-full object-cover rounded-l-lg">
                 @else
-                    <img src="{{ asset('storage/' . $property->image) }}" 
+                    <img src="{{ asset('storage/' . $mainImage) }}" 
                          alt="{{ $property->title }}" class="w-full h-full object-cover rounded-l-lg">
                 @endif
             @else
-                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800" 
-                     alt="{{ $property->title }}" class="w-full h-full object-cover rounded-l-lg">
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center rounded-l-lg">
+                    <i class="fas fa-home text-gray-400 text-4xl"></i>
+                </div>
             @endif
         </div>
+        
+        <!-- Image 2 (Top Right) -->
         <div class="col-span-1">
-            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400" 
-                 alt="Image 2" class="w-full h-full object-cover">
+            @php
+                $image2 = $property->getImageByIndex(2);
+            @endphp
+            @if($image2)
+                @if(str_starts_with($image2, 'http'))
+                    <img src="{{ $image2 }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover">
+                @else
+                    <img src="{{ asset('storage/' . $image2) }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover">
+                @endif
+            @else
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-bed text-gray-400 text-2xl"></i>
+                </div>
+            @endif
         </div>
+        
+        <!-- Image 3 (Top Far Right) -->
         <div class="col-span-1">
-            <img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=400" 
-                 alt="Image 3" class="w-full h-full object-cover rounded-tr-lg">
+            @php
+                $image3 = $property->getImageByIndex(3);
+            @endphp
+            @if($image3)
+                @if(str_starts_with($image3, 'http'))
+                    <img src="{{ $image3 }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover rounded-tr-lg">
+                @else
+                    <img src="{{ asset('storage/' . $image3) }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover rounded-tr-lg">
+                @endif
+            @else
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center rounded-tr-lg">
+                    <i class="fas fa-bath text-gray-400 text-2xl"></i>
+                </div>
+            @endif
         </div>
+        
+        <!-- Image 4 (Bottom Right) -->
         <div class="col-span-1">
-            <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400" 
-                 alt="Image 4" class="w-full h-full object-cover">
+            @php
+                $image4 = $property->getImageByIndex(4);
+            @endphp
+            @if($image4)
+                @if(str_starts_with($image4, 'http'))
+                    <img src="{{ $image4 }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover">
+                @else
+                    <img src="{{ asset('storage/' . $image4) }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover">
+                @endif
+            @else
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-utensils text-gray-400 text-2xl"></i>
+                </div>
+            @endif
         </div>
-        <div class="col-span-1 relative">
-            <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=400" 
-                 alt="Image 5" class="w-full h-full object-cover rounded-br-lg">
-            <button class="absolute inset-0 bg-black bg-opacity-50 rounded-br-lg flex items-center justify-center text-white font-semibold">
-                <i class="fa-solid fa-images mr-2"></i> Show All Photos
-            </button>
+        
+        <!-- Image 5 (Bottom Far Right) -->
+        <div class="col-span-1">
+            @php
+                $image5 = $property->getImageByIndex(5);
+            @endphp
+            @if($image5)
+                @if(str_starts_with($image5, 'http'))
+                    <img src="{{ $image5 }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover rounded-br-lg">
+                @else
+                    <img src="{{ asset('storage/' . $image5) }}" 
+                         alt="{{ $property->title }}" class="w-full h-full object-cover rounded-br-lg">
+                @endif
+            @else
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center rounded-br-lg">
+                    <i class="fas fa-couch text-gray-400 text-2xl"></i>
+                </div>
+            @endif
         </div>
     </div>
 </div>
@@ -79,14 +145,25 @@
             <hr class="my-6">
             
             <!-- Host Info -->
+            @if($property->owner)
             <div class="flex items-center mb-6">
-                <img src="https://ui-avatars.com/api/?name={{ urlencode($property->user->name) }}&size=64" 
-                     alt="{{ $property->user->name }}" class="w-16 h-16 rounded-full mr-4">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($property->owner->name) }}&size=64" 
+                     alt="{{ $property->owner->name }}" class="w-16 h-16 rounded-full mr-4">
                 <div>
-                    <h3 class="font-semibold text-lg">Hosted by {{ $property->user->name }}</h3>
-                    <p class="text-gray-600">Property Owner • {{ ucfirst($property->user->role) }}</p>
+                    <h3 class="font-semibold text-lg">Hosted by {{ $property->owner->name }}</h3>
+                    <p class="text-gray-600">Property Owner • {{ ucfirst($property->owner->role) }}</p>
                 </div>
             </div>
+            @else
+            <div class="flex items-center mb-6">
+                <img src="https://ui-avatars.com/api/?name=Property%20Owner&size=64" 
+                     alt="Property Owner" class="w-16 h-16 rounded-full mr-4">
+                <div>
+                    <h3 class="font-semibold text-lg">Hosted by Property Owner</h3>
+                    <p class="text-gray-600">Property Owner</p>
+                </div>
+            </div>
+            @endif
             
             <hr class="my-6">
             
@@ -200,165 +277,111 @@
             
             <hr class="my-6">
             
-            <!-- Location -->
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold mb-4">Location</h2>
-                <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
-                    <p class="text-gray-600">
-                        <i class="fas fa-map-marked-alt text-4xl mb-2"></i><br>
-                        Map will be displayed here
-                    </p>
-                </div>
-                <p class="text-gray-700 mt-4">
-                    Located in the heart of downtown, within walking distance to major attractions, 
-                    restaurants, and shopping centers. Easy access to public transportation.
-                </p>
-            </div>
-            
-            <hr class="my-6">
-            
             <!-- Reviews -->
+            @if($property->total_reviews > 0)
             <div class="mb-6">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-2xl font-bold">
-                        <i class="fas fa-star text-yellow-500"></i> 4.8 • 124 Reviews
+                        <i class="fas fa-star text-yellow-500"></i> {{ $property->average_rating }} • {{ $property->total_reviews }} {{ Str::plural('Review', $property->total_reviews) }}
                     </h2>
                 </div>
                 
                 <!-- Review Stats -->
                 <div class="grid grid-cols-2 gap-4 mb-6">
+                    @php $reviewStats = $property->review_stats; @endphp
                     <div>
                         <div class="flex justify-between mb-2">
                             <span>Cleanliness</span>
-                            <span class="font-semibold">4.9</span>
+                            <span class="font-semibold">{{ $reviewStats['cleanliness'] }}</span>
                         </div>
                         <div class="bg-gray-200 h-2 rounded-full">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: 98%"></div>
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: {{ $reviewStats['cleanliness'] * 20 }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-2">
                             <span>Communication</span>
-                            <span class="font-semibold">4.8</span>
+                            <span class="font-semibold">{{ $reviewStats['communication'] }}</span>
                         </div>
                         <div class="bg-gray-200 h-2 rounded-full">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: 96%"></div>
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: {{ $reviewStats['communication'] * 20 }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-2">
                             <span>Check-in</span>
-                            <span class="font-semibold">4.9</span>
+                            <span class="font-semibold">{{ $reviewStats['checkin'] }}</span>
                         </div>
                         <div class="bg-gray-200 h-2 rounded-full">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: 98%"></div>
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: {{ $reviewStats['checkin'] * 20 }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-2">
                             <span>Accuracy</span>
-                            <span class="font-semibold">4.7</span>
+                            <span class="font-semibold">{{ $reviewStats['accuracy'] }}</span>
                         </div>
                         <div class="bg-gray-200 h-2 rounded-full">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: 94%"></div>
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: {{ $reviewStats['accuracy'] * 20 }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-2">
                             <span>Location</span>
-                            <span class="font-semibold">5.0</span>
+                            <span class="font-semibold">{{ $reviewStats['location'] }}</span>
                         </div>
                         <div class="bg-gray-200 h-2 rounded-full">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: 100%"></div>
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: {{ $reviewStats['location'] * 20 }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-2">
                             <span>Value</span>
-                            <span class="font-semibold">4.6</span>
+                            <span class="font-semibold">{{ $reviewStats['value'] }}</span>
                         </div>
                         <div class="bg-gray-200 h-2 rounded-full">
-                            <div class="bg-purple-600 h-2 rounded-full" style="width: 92%"></div>
+                            <div class="bg-purple-600 h-2 rounded-full" style="width: {{ $reviewStats['value'] * 20 }}%"></div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Individual Reviews -->
                 <div class="space-y-6">
-                    <div class="border-b pb-6">
+                    @foreach($reviews as $review)
+                    <div class="border-b pb-6 last:border-b-0">
                         <div class="flex items-start mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Sarah+Smith&size=48" 
-                                 alt="Reviewer" class="w-12 h-12 rounded-full mr-3">
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($review->customer->name) }}&size=48" 
+                                 alt="{{ $review->customer->name }}" class="w-12 h-12 rounded-full mr-3">
                             <div>
-                                <h4 class="font-semibold">Sarah Smith</h4>
-                                <p class="text-gray-600 text-sm">March 2024</p>
+                                <h4 class="font-semibold">{{ $review->customer->name }}</h4>
+                                <p class="text-gray-600 text-sm">{{ $review->reviewed_at->format('F Y') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center mb-2">
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
+                            @for($i = 1; $i <= 5; $i++)
+                                <i class="fas fa-star {{ $i <= $review->rating ? 'text-yellow-500' : 'text-gray-300' }}"></i>
+                            @endfor
                         </div>
                         <p class="text-gray-700">
-                            Amazing apartment! Everything was exactly as described. The location is perfect, 
-                            right in the heart of downtown. John was a great host and very responsive. 
-                            Would definitely stay here again!
+                            {{ $review->review_comment }}
                         </p>
                     </div>
-                    
-                    <div class="border-b pb-6">
-                        <div class="flex items-start mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Mike+Johnson&size=48" 
-                                 alt="Reviewer" class="w-12 h-12 rounded-full mr-3">
-                            <div>
-                                <h4 class="font-semibold">Mike Johnson</h4>
-                                <p class="text-gray-600 text-sm">February 2024</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-gray-300"></i>
-                        </div>
-                        <p class="text-gray-700">
-                            Great place for a business trip. Very clean and comfortable. 
-                            The WiFi was fast and reliable. Only minor issue was some street noise, 
-                            but nothing major. Overall highly recommend!
-                        </p>
-                    </div>
-                    
-                    <div>
-                        <div class="flex items-start mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Emily+Davis&size=48" 
-                                 alt="Reviewer" class="w-12 h-12 rounded-full mr-3">
-                            <div>
-                                <h4 class="font-semibold">Emily Davis</h4>
-                                <p class="text-gray-600 text-sm">January 2024</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                            <i class="fas fa-star text-yellow-500"></i>
-                        </div>
-                        <p class="text-gray-700">
-                            Perfect apartment for our family vacation! Spacious, clean, and well-equipped. 
-                            The kids loved the building's amenities. John was super helpful with recommendations. 
-                            Can't wait to come back!
-                        </p>
-                    </div>
+                    @endforeach
                 </div>
                 
+                @if($property->total_reviews > 3)
                 <button class="mt-6 border-2 border-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50">
-                    Show All 124 Reviews
+                    Show All {{ $property->total_reviews }} Reviews
                 </button>
+                @endif
             </div>
+            @else
+            <div class="mb-6 text-center py-8">
+                <i class="fas fa-star text-gray-300 text-4xl mb-4"></i>
+                <h2 class="text-xl font-bold text-gray-600 mb-2">No Reviews Yet</h2>
+                <p class="text-gray-500">Be the first to leave a review for this property!</p>
+            </div>
+            @endif
         </div>
         
         <!-- Right Column - Booking Card -->
@@ -369,64 +392,504 @@
                         <span class="text-3xl font-bold">${{ number_format($property->price_per_night, 0) }}</span>
                         <span class="text-gray-600 ml-2">per night</span>
                     </div>
+                    @if($property->total_reviews > 0)
                     <div class="flex items-center mt-2">
                         <i class="fas fa-star text-yellow-500"></i>
-                        <span class="ml-1 font-semibold">4.8</span>
-                        <span class="text-gray-500 ml-1">(124 reviews)</span>
+                        <span class="ml-1 font-semibold">{{ $property->average_rating }}</span>
+                        <span class="text-gray-500 ml-1">({{ $property->total_reviews }} {{ Str::plural('review', $property->total_reviews) }})</span>
                     </div>
+                    @endif
                 </div>
                 
-                <form action="/booking" method="POST" class="space-y-4">
-                    <div class="grid grid-cols-2 gap-2 border rounded-lg">
-                        <div class="p-3 border-r">
-                            <label class="block text-xs font-semibold mb-1">CHECK-IN</label>
-                            <input type="date" name="check_in" class="w-full text-sm outline-none">
+                @auth
+                <form id="bookingForm" action="{{ route('bookings.store') }}" method="POST" class="space-y-4">
+                    @csrf
+                    <input type="hidden" name="property_id" value="{{ $property->id }}">
+                    
+                    <div class="border rounded-lg">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="p-3 border-r">
+                                <label class="block text-xs font-semibold mb-1">CHECK-IN</label>
+                                <input type="date" id="check_in" name="check_in" class="w-full text-sm outline-none" 
+                                       min="{{ date('Y-m-d') }}" onchange="updateDatesAndPricing()" onclick="showCalendar('check_in')" required readonly>
+                            </div>
+                            <div class="p-3">
+                                <label class="block text-xs font-semibold mb-1">CHECKOUT</label>
+                                <input type="date" id="check_out" name="check_out" class="w-full text-sm outline-none" 
+                                       onchange="updateDatesAndPricing()" onclick="showCalendar('check_out')" required readonly>
+                            </div>
                         </div>
-                        <div class="p-3">
-                            <label class="block text-xs font-semibold mb-1">CHECKOUT</label>
-                            <input type="date" name="check_out" class="w-full text-sm outline-none">
+                        
+                        <!-- Custom Calendar -->
+                        <div id="customCalendar" class="p-4 border-t hidden">
+                            <div class="flex justify-between items-center mb-4">
+                                <button type="button" onclick="changeMonth(-1)" class="p-2 hover:bg-gray-100 rounded">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h3 id="monthYear" class="font-semibold"></h3>
+                                <button type="button" onclick="changeMonth(1)" class="p-2 hover:bg-gray-100 rounded">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2">
+                                <div class="p-2 font-semibold text-gray-500">Sun</div>
+                                <div class="p-2 font-semibold text-gray-500">Mon</div>
+                                <div class="p-2 font-semibold text-gray-500">Tue</div>
+                                <div class="p-2 font-semibold text-gray-500">Wed</div>
+                                <div class="p-2 font-semibold text-gray-500">Thu</div>
+                                <div class="p-2 font-semibold text-gray-500">Fri</div>
+                                <div class="p-2 font-semibold text-gray-500">Sat</div>
+                            </div>
+                            <div id="calendarDays" class="grid grid-cols-7 gap-1 text-center text-sm">
+                                <!-- Calendar days will be populated by JavaScript -->
+                            </div>
+                            <div class="mt-4 flex gap-2 text-xs">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-gray-200 rounded mr-1"></div>
+                                    <span>Unavailable</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 bg-purple-600 rounded mr-1"></div>
+                                    <span>Selected</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="border rounded-lg p-3">
                         <label class="block text-xs font-semibold mb-1">GUESTS</label>
-                        <select name="guests" class="w-full text-sm outline-none">
+                        <select name="guests" class="w-full text-sm outline-none" required>
                             @for($i = 1; $i <= $property->max_guests; $i++)
                                 <option value="{{ $i }}">{{ $i }} guest{{ $i > 1 ? 's' : '' }}</option>
                             @endfor
                         </select>
                     </div>
                     
-                    <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold">
+                    <button type="button" onclick="showReservationModal()" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold">
                         Reserve
                     </button>
+                @else
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-2 border rounded-lg opacity-50">
+                        <div class="p-3 border-r">
+                            <label class="block text-xs font-semibold mb-1">CHECK-IN</label>
+                            <input type="date" class="w-full text-sm outline-none" disabled>
+                        </div>
+                        <div class="p-3">
+                            <label class="block text-xs font-semibold mb-1">CHECKOUT</label>
+                            <input type="date" class="w-full text-sm outline-none" disabled>
+                        </div>
+                    </div>
                     
-                    <p class="text-center text-sm text-gray-600">You won't be charged yet</p>
+                    <div class="border rounded-lg p-3 opacity-50">
+                        <label class="block text-xs font-semibold mb-1">GUESTS</label>
+                        <select class="w-full text-sm outline-none" disabled>
+                            <option>1 guest</option>
+                        </select>
+                    </div>
                     
-                    <div class="space-y-2 text-sm">
+                    <a href="{{ route('login') }}" class="block w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold text-center">
+                        Log in to Reserve
+                    </a>
+                </div>
+                @endauth
+                    
+                @auth
+                </form>
+                @endauth
+                    
+                <p class="text-center text-sm text-gray-600">You won't be charged yet</p>
+                    
+                    <div id="pricingBreakdown" class="space-y-2 text-sm" style="display: none;">
                         <div class="flex justify-between">
-                            <span class="underline">$120 x 5 nights</span>
-                            <span>$600</span>
+                            <span class="underline" id="nightsCalculation">${{ number_format($property->price_per_night, 0) }} x 0 nights</span>
+                            <span id="subtotal">$0</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="underline">Service fee</span>
-                            <span>$30</span>
+                            <span id="serviceFee">$0</span>
                         </div>
+                        @if($property->cleaning_fee)
+                        <div class="flex justify-between">
+                            <span class="underline">Cleaning fee</span>
+                            <span>${{ number_format($property->cleaning_fee, 0) }}</span>
+                        </div>
+                        @endif
                         <hr>
                         <div class="flex justify-between font-semibold text-base">
                             <span>Total</span>
-                            <span>$630</span>
+                            <span id="totalPrice">$0</span>
                         </div>
                     </div>
                 </form>
-                
-                <div class="mt-6 text-center">
-                    <button class="text-purple-600 hover:text-purple-700 font-semibold">
-                        <i class="fas fa-flag mr-2"></i> Report this listing
-                    </button>
-                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Reservation Confirmation Modal -->
+<div id="reservationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" style="display: none;">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">Confirm Reservation</h3>
+                <button onclick="closeReservationModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-semibold">{{ $property->title }}</h4>
+                    <p class="text-gray-600">{{ $property->city }}, {{ $property->state }}</p>
+                </div>
+                
+                <div class="border-t pt-4">
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-600">Check-in</p>
+                            <p class="font-semibold" id="modalCheckIn">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Check-out</p>
+                            <p class="font-semibold" id="modalCheckOut">-</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t pt-4">
+                    <div class="flex justify-between">
+                        <span>Total</span>
+                        <span class="font-bold" id="modalTotal">$0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="confirmReservation()" 
+                        class="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 font-semibold">
+                    Confirm Booking
+                </button>
+                <button onclick="closeReservationModal()" 
+                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const propertyPricePerNight = {{ $property->price_per_night }};
+const cleaningFee = {{ $property->cleaning_fee ?? 0 }};
+const serviceFeeRate = 0.1;
+
+// Unavailable date ranges
+const unavailableDates = @json($unavailableDates);
+
+let currentDate = new Date();
+let selectedCheckIn = null;
+let selectedCheckOut = null;
+let selectingCheckIn = true;
+
+function updateDatesAndPricing() {
+    const checkIn = document.getElementById('check_in').value;
+    const checkOut = document.getElementById('check_out').value;
+    
+    // Calculate pricing if both dates are selected
+    if (checkIn && checkOut) {
+        const startDate = new Date(checkIn);
+        const endDate = new Date(checkOut);
+        
+        if (endDate > startDate) {
+            const nights = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const subtotal = propertyPricePerNight * nights;
+            const serviceFee = Math.round(subtotal * serviceFeeRate);
+            const total = subtotal + serviceFee + cleaningFee;
+            
+            // Update pricing display
+            document.getElementById('nightsCalculation').textContent = `$${propertyPricePerNight.toLocaleString()} x ${nights} night${nights > 1 ? 's' : ''}`;
+            document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
+            document.getElementById('serviceFee').textContent = `$${serviceFee.toLocaleString()}`;
+            document.getElementById('totalPrice').textContent = `$${total.toLocaleString()}`;
+            document.getElementById('pricingBreakdown').style.display = 'block';
+        } else {
+            document.getElementById('pricingBreakdown').style.display = 'none';
+        }
+    }
+}
+
+function isDateUnavailable(date) {
+    const dateStr = date.toISOString().split('T')[0];
+    
+    return unavailableDates.some(range => {
+        return dateStr >= range.start && dateStr <= range.end;
+    });
+}
+
+function isDateInPast(date) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+}
+
+function showCalendar(field) {
+    selectingCheckIn = (field === 'check_in');
+    document.getElementById('customCalendar').classList.remove('hidden');
+    renderCalendar();
+}
+
+function hideCalendar() {
+    document.getElementById('customCalendar').classList.add('hidden');
+}
+
+function formatDateForDisplay(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+    });
+}
+
+function changeMonth(direction) {
+    currentDate.setMonth(currentDate.getMonth() + direction);
+    renderCalendar();
+}
+
+function renderCalendar() {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+    document.getElementById('monthYear').textContent = 
+        `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+    
+    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    const startDate = new Date(firstDay);
+    startDate.setDate(startDate.getDate() - firstDay.getDay());
+    
+    const calendarDays = document.getElementById('calendarDays');
+    calendarDays.innerHTML = '';
+    
+    for (let i = 0; i < 42; i++) {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+        
+        const dayElement = document.createElement('div');
+        dayElement.className = 'p-2 cursor-pointer hover:bg-gray-100 rounded';
+        dayElement.textContent = date.getDate();
+        
+        // Style different types of dates
+        if (date.getMonth() !== currentDate.getMonth()) {
+            dayElement.className += ' text-gray-300';
+        } else if (isDateInPast(date)) {
+            dayElement.className += ' text-gray-400 cursor-not-allowed';
+        } else if (isDateUnavailable(date)) {
+            dayElement.className += ' bg-gray-200 text-gray-500 cursor-not-allowed';
+            dayElement.title = 'Already booked - unavailable';
+        } else {
+            dayElement.className += ' hover:bg-purple-100';
+            
+            // Check if date is selected or in range
+            const dateStr = date.toISOString().split('T')[0];
+            if (selectedCheckIn && dateStr === selectedCheckIn) {
+                dayElement.className += ' bg-purple-600 text-white font-bold';
+                dayElement.title = 'Check-in date';
+            } else if (selectedCheckOut && dateStr === selectedCheckOut) {
+                dayElement.className += ' bg-purple-600 text-white font-bold';
+                dayElement.title = 'Check-out date';
+            } else if (selectedCheckIn && selectedCheckOut && 
+                       dateStr > selectedCheckIn && dateStr < selectedCheckOut) {
+                dayElement.className += ' bg-purple-200 text-purple-800';
+                dayElement.title = 'Selected range';
+            }
+            
+            // Add click handler for available dates
+            dayElement.addEventListener('click', () => selectDate(date));
+        }
+        
+        calendarDays.appendChild(dayElement);
+    }
+}
+
+function selectDate(date) {
+    if (isDateInPast(date) || isDateUnavailable(date)) {
+        return;
+    }
+    
+    const dateStr = date.toISOString().split('T')[0];
+    
+    if (selectingCheckIn) {
+        selectedCheckIn = dateStr;
+        selectedCheckOut = null;
+        document.getElementById('check_in').value = dateStr;
+        document.getElementById('check_out').value = '';
+        
+        // Update input display
+        const checkInInput = document.getElementById('check_in');
+        checkInInput.style.color = 'black';
+        checkInInput.style.fontWeight = 'bold';
+        
+        selectingCheckIn = false;
+    } else {
+        if (selectedCheckIn && dateStr <= selectedCheckIn) {
+            // If checkout is before or same as checkin, reset and select as checkin
+            selectedCheckIn = dateStr;
+            selectedCheckOut = null;
+            document.getElementById('check_in').value = dateStr;
+            document.getElementById('check_out').value = '';
+            
+            // Update input display
+            const checkInInput = document.getElementById('check_in');
+            checkInInput.style.color = 'black';
+            checkInInput.style.fontWeight = 'bold';
+            
+            selectingCheckIn = false;
+        } else {
+            // Check if there are any unavailable dates between check-in and check-out
+            const checkInDate = new Date(selectedCheckIn);
+            const checkOutDate = new Date(dateStr);
+            let hasUnavailableInBetween = false;
+            
+            for (let d = new Date(checkInDate); d < checkOutDate; d.setDate(d.getDate() + 1)) {
+                if (isDateUnavailable(d)) {
+                    hasUnavailableInBetween = true;
+                    break;
+                }
+            }
+            
+            if (hasUnavailableInBetween) {
+                alert('There are unavailable dates in your selected range. Please choose different dates.');
+                return;
+            }
+            
+            selectedCheckOut = dateStr;
+            document.getElementById('check_out').value = dateStr;
+            
+            // Update input display
+            const checkOutInput = document.getElementById('check_out');
+            checkOutInput.style.color = 'black';
+            checkOutInput.style.fontWeight = 'bold';
+            
+            hideCalendar();
+        }
+    }
+    
+    renderCalendar();
+    updateDatesAndPricing();
+}
+
+// Close calendar when clicking outside
+document.addEventListener('click', function(event) {
+    const calendar = document.getElementById('customCalendar');
+    const checkInInput = document.getElementById('check_in');
+    const checkOutInput = document.getElementById('check_out');
+    
+    if (!calendar.contains(event.target) && 
+        !checkInInput.contains(event.target) && 
+        !checkOutInput.contains(event.target)) {
+        hideCalendar();
+    }
+});
+
+function showReservationModal() {
+    const checkIn = document.getElementById('check_in').value;
+    const checkOut = document.getElementById('check_out').value;
+    
+    if (!checkIn || !checkOut) {
+        alert('Please select both check-in and check-out dates.');
+        return;
+    }
+    
+    const startDate = new Date(checkIn);
+    const endDate = new Date(checkOut);
+    
+    if (endDate <= startDate) {
+        alert('Check-out date must be after check-in date.');
+        return;
+    }
+    
+    // Update modal content
+    document.getElementById('modalCheckIn').textContent = startDate.toLocaleDateString('en-US', { 
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+    });
+    document.getElementById('modalCheckOut').textContent = endDate.toLocaleDateString('en-US', { 
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+    });
+    document.getElementById('modalTotal').textContent = document.getElementById('totalPrice').textContent;
+    
+    // Show modal
+    const modal = document.getElementById('reservationModal');
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+}
+
+function closeReservationModal() {
+    const modal = document.getElementById('reservationModal');
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+}
+
+function confirmReservation() {
+    // Check availability before submitting
+    checkAvailability().then(available => {
+        if (available) {
+            document.getElementById('bookingForm').submit();
+        } else {
+            alert('Sorry, this property is not available for the selected dates. Please choose different dates.');
+            closeReservationModal();
+        }
+    });
+}
+
+async function checkAvailability() {
+    const checkIn = document.getElementById('check_in').value;
+    const checkOut = document.getElementById('check_out').value;
+    const propertyId = {{ $property->id }};
+    
+    try {
+        const response = await fetch('/api/check-availability', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                property_id: propertyId,
+                check_in: checkIn,
+                check_out: checkOut
+            })
+        });
+        
+        const data = await response.json();
+        return data.available;
+    } catch (error) {
+        console.error('Error checking availability:', error);
+        return true; // Allow booking if check fails
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Set current month to today or next month if today is near end of month
+    const today = new Date();
+    currentDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    
+    // Initialize selected dates from inputs if any
+    const checkInValue = document.getElementById('check_in').value;
+    const checkOutValue = document.getElementById('check_out').value;
+    
+    if (checkInValue) {
+        selectedCheckIn = checkInValue;
+    }
+    if (checkOutValue) {
+        selectedCheckOut = checkOutValue;
+    }
+    
+    // Initial pricing calculation
+    updateDatesAndPricing();
+});
+</script>
 @endsection

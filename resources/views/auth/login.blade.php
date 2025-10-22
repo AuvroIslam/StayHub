@@ -17,14 +17,27 @@
 
         <!-- Login Form -->
         <div class="bg-white rounded-lg shadow-md p-8">
+            @if ($errors->any())
+                <div class="mb-4 p-4 rounded-lg" style="background-color: rgba(239, 68, 68, 0.1); border: 1px solid #EF4444;">
+                    <ul class="list-disc list-inside text-red-600">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="/login" method="POST">
                 @csrf
                 
                 <div class="mb-4">
                     <label class="block text-gray-700 font-semibold mb-2">Email Address</label>
-                    <input type="email" name="email" required 
+                    <input type="email" name="email" required value="{{ old('email') }}"
                            class="w-full px-4 py-3 border rounded-lg outline-none" style="border-color: #80A1BA;"
                            placeholder="your@email.com">
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div class="mb-4">
@@ -32,16 +45,22 @@
                     <input type="password" name="password" required 
                            class="w-full px-4 py-3 border rounded-lg outline-none" style="border-color: #80A1BA;"
                            placeholder="Enter your password">
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+                
+                @if(session('error'))
+                    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 
                 <div class="flex items-center justify-between mb-6">
                     <label class="flex items-center">
                         <input type="checkbox" name="remember" class="mr-2">
                         <span class="text-sm text-gray-600">Remember me</span>
                     </label>
-                    <a href="/forgot-password" class="text-sm" style="color: #80A1BA; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-                        Forgot password?
-                    </a>
                 </div>
                 
                 <button type="submit" 
@@ -49,28 +68,6 @@
                     Sign In
                 </button>
             </form>
-            
-            <!-- Divider -->
-            <div class="relative my-6">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-300"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-white text-gray-500">Or continue with</span>
-                </div>
-            </div>
-            
-            <!-- Social Login -->
-            <div class="grid grid-cols-2 gap-4">
-                <button class="flex items-center justify-center px-4 py-3 border rounded-lg hover:bg-gray-50">
-                    <i class="fa-brands fa-google text-red-500 mr-2"></i>
-                    <span class="font-semibold">Google</span>
-                </button>
-                <button class="flex items-center justify-center px-4 py-3 border rounded-lg hover:bg-gray-50">
-                    <i class="fa-brands fa-facebook text-blue-600 mr-2"></i>
-                    <span class="font-semibold">Facebook</span>
-                </button>
-            </div>
             
             <!-- Sign Up Link -->
             <p class="mt-6 text-center text-gray-600">

@@ -240,14 +240,16 @@ class AirbnbStyleSeeder extends Seeder
 
     public function run(): void
     {
-        // Create Admin User
-        $admin = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@stayhub.com',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-            'email_verified_at' => now(),
-        ]);
+        // Create or update Admin User
+        $admin = User::updateOrCreate(
+            ['email' => 'admin@stayhub.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Create Property Owners
         $owners = [];
@@ -260,13 +262,15 @@ class AirbnbStyleSeeder extends Seeder
         ];
 
         foreach ($ownerNames as $ownerData) {
-            $owners[] = User::create([
-                'name' => $ownerData[0],
-                'email' => $ownerData[1],
-                'password' => Hash::make('password'),
-                'role' => 'owner',
-                'email_verified_at' => now(),
-            ]);
+            $owners[] = User::updateOrCreate(
+                ['email' => $ownerData[1]],
+                [
+                    'name' => $ownerData[0],
+                    'password' => Hash::make('password'),
+                    'role' => 'owner',
+                    'email_verified_at' => now(),
+                ]
+            );
         }
 
         // Create Customers
@@ -280,13 +284,15 @@ class AirbnbStyleSeeder extends Seeder
         ];
 
         foreach ($customerNames as $customerData) {
-            $customers[] = User::create([
-                'name' => $customerData[0],
-                'email' => $customerData[1],
-                'password' => Hash::make('password'),
-                'role' => 'customer',
-                'email_verified_at' => now(),
-            ]);
+            $customers[] = User::updateOrCreate(
+                ['email' => $customerData[1]],
+                [
+                    'name' => $customerData[0],
+                    'password' => Hash::make('password'),
+                    'role' => 'customer',
+                    'email_verified_at' => now(),
+                ]
+            );
         }
 
         // Create Properties with realistic data

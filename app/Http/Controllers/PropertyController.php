@@ -85,30 +85,38 @@ class PropertyController extends Controller
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:100',
             'state' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
             'zip_code' => 'nullable|string|max:20',
-            'property_type' => 'required|in:apartment,house,villa,condo',
+            'property_type' => 'required|in:apartment,house,villa,studio,condo,other',
             'bedrooms' => 'required|integer|min:1|max:20',
             'bathrooms' => 'required|integer|min:1|max:20',
             'max_guests' => 'required|integer|min:1|max:50',
             'price_per_night' => 'required|numeric|min:1|max:10000',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image_2' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image_3' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image_4' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image_5' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         // Create property
         $validated['user_id'] = Auth::id();
         $validated['status'] = 'active';
         
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('properties', 'public');
-            $validated['image'] = $imagePath;
+        // Handle multiple image uploads
+        $imageFields = ['image', 'image_2', 'image_3', 'image_4', 'image_5'];
+        foreach ($imageFields as $field) {
+            if ($request->hasFile($field)) {
+                $imagePath = $request->file($field)->store('properties', 'public');
+                $validated[$field] = $imagePath;
+            }
         }
         
         $property = Property::create($validated);
 
         // Redirect to owner dashboard
         return redirect()->route('owner.dashboard')
-            ->with('success', 'Property created successfully!');
+            ->with('success', 'Property created successfully with all images!');
     }
 
     /**
@@ -125,7 +133,23 @@ class PropertyController extends Controller
             }
         ]);
 
-        return view('properties.show', compact('property'));
+        // Get reviews (bookings with ratings)
+        $reviews = $property->reviews()->orderBy('reviewed_at', 'desc')->get();
+
+        // Get unavailable date ranges for calendar
+        $unavailableDates = $property->bookings()
+            ->whereIn('status', ['confirmed', 'pending'])
+            ->where('check_out', '>=', now())
+            ->select('check_in', 'check_out')
+            ->get()
+            ->map(function($booking) {
+                return [
+                    'start' => $booking->check_in->format('Y-m-d'),
+                    'end' => $booking->check_out->format('Y-m-d')
+                ];
+            });
+
+        return view('properties.show', compact('property', 'reviews', 'unavailableDates'));
     }
 
     /**
@@ -158,8 +182,9 @@ class PropertyController extends Controller
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:100',
             'state' => 'nullable|string|max:100',
+            'country' => 'nullable|string|max:100',
             'zip_code' => 'nullable|string|max:20',
-            'property_type' => 'required|in:apartment,house,villa,condo',
+            'property_type' => 'required|in:apartment,house,villa,studio,condo,other',
             'bedrooms' => 'required|integer|min:1|max:20',
             'bathrooms' => 'required|integer|min:1|max:20',
             'max_guests' => 'required|integer|min:1|max:50',
@@ -171,8 +196,8 @@ class PropertyController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             // Delete old image if exists
-            if ($property->image && \Storage::disk('public')->exists($property->image)) {
-                \Storage::disk('public')->delete($property->image);
+            if ($property->image && Storage::disk('public')->exists($property->image)) {
+                Storage::disk('public')->delete($property->image);
             }
             $imagePath = $request->file('image')->store('properties', 'public');
             $validated['image'] = $imagePath;
@@ -207,8 +232,8 @@ class PropertyController extends Controller
         }
 
         // Delete image if exists
-        if ($property->image && \Storage::disk('public')->exists($property->image)) {
-            \Storage::disk('public')->delete($property->image);
+        if ($property->image && Storage::disk('public')->exists($property->image)) {
+            Storage::disk('public')->delete($property->image);
         }
 
         // Delete property

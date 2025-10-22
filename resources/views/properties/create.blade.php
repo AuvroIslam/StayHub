@@ -138,11 +138,59 @@
             </div>
 
             <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Property Image</h2>
-                <div>
-                    <label for="image" class="block text-gray-700 font-medium mb-2">Upload Image</label>
-                    <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                    <p class="text-gray-500 text-sm mt-1">Optional: Upload a property image (JPG, PNG, max 2MB)</p>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Property Images *</h2>
+                <p class="text-gray-600 mb-4">Upload at least 5 high-quality images of your property to attract more guests.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="image" class="block text-gray-700 font-medium mb-2">Main Image (Required) *</label>
+                        <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image') border-red-500 @enderror" required>
+                        @error('image')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div>
+                        <label for="image_2" class="block text-gray-700 font-medium mb-2">Image 2 (Required) *</label>
+                        <input type="file" id="image_2" name="image_2" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_2') border-red-500 @enderror" required>
+                        @error('image_2')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div>
+                        <label for="image_3" class="block text-gray-700 font-medium mb-2">Image 3 (Required) *</label>
+                        <input type="file" id="image_3" name="image_3" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_3') border-red-500 @enderror" required>
+                        @error('image_3')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div>
+                        <label for="image_4" class="block text-gray-700 font-medium mb-2">Image 4 (Required) *</label>
+                        <input type="file" id="image_4" name="image_4" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_4') border-red-500 @enderror" required>
+                        @error('image_4')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="image_5" class="block text-gray-700 font-medium mb-2">Image 5 (Required) *</label>
+                        <input type="file" id="image_5" name="image_5" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_5') border-red-500 @enderror" required>
+                        @error('image_5')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-medium text-blue-800 mb-2">📸 Photo Tips:</h4>
+                    <ul class="text-sm text-blue-700 space-y-1">
+                        <li>• Include exterior shots, living areas, bedrooms, bathrooms, and kitchen</li>
+                        <li>• Use good lighting and high resolution (JPG, PNG, max 2MB each)</li>
+                        <li>• Show the property's best features and unique selling points</li>
+                        <li>• Avoid personal items and ensure rooms are clean and tidy</li>
+                    </ul>
                 </div>
             </div>
 

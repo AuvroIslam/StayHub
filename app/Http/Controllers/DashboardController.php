@@ -81,7 +81,7 @@ class DashboardController extends Controller
 
     /**
      * Show the customer dashboard.
-     * Displays bookings, favorites, and user activity.
+     * Displays bookings and user activity.
      */
     public function customer()
     {

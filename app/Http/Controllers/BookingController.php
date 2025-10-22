@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Property;
-use App\Models\Payment;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -21,6 +21,7 @@ class BookingController extends Controller
      */
     public function index()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         
         if ($user->isOwner() || $user->isAdmin()) {
@@ -30,13 +31,13 @@ class BookingController extends Controller
                     $query->where('user_id', $user->id);
                 }
             })
-            ->with(['property', 'customer', 'payment'])
+            ->with(['property', 'customer'])
             ->orderBy('created_at', 'desc')
             ->paginate(15);
         } else {
             // Customers see their own bookings
             $bookings = Booking::where('user_id', $user->id)
-                ->with(['property', 'payment'])
+                ->with(['property'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(15);
         }
@@ -55,7 +56,9 @@ class BookingController extends Controller
             return redirect()->route('login')->with('error', 'Please login to book a property.');
         }
 
-        if (Auth::user()->isOwner() && $property->user_id === Auth::id()) {
+        /** @var \App\Models\User $currentUser */
+        $currentUser = Auth::user();
+        if ($currentUser->isOwner() && $property->user_id === Auth::id()) {
             return back()->with('error', 'You cannot book your own property.');
         }
 
@@ -106,9 +109,9 @@ class BookingController extends Controller
         $nights = $checkIn->diffInDays($checkOut);
         
         $subtotal = $property->price_per_night * $nights;
+        $serviceFee = round($subtotal * 0.1); // 10% service fee
         $cleaningFee = $property->cleaning_fee ?? 0;
-        $serviceFee = $property->service_fee ?? 0;
-        $totalPrice = $subtotal + $cleaningFee + $serviceFee;
+        $totalPrice = $subtotal + $serviceFee + $cleaningFee;
 
         // Create booking using Mass Assignment
         $booking = Booking::create([
@@ -122,8 +125,8 @@ class BookingController extends Controller
         ]);
 
         // Flash Session Data
-        return redirect()->route('bookings.show', $booking)
-            ->with('success', 'Booking request created! Please proceed with payment.');
+        return redirect()->route('bookings.index')
+            ->with('success', 'Booking request created successfully! You can view it in your bookings.');
     }
 
     /**
@@ -132,13 +135,15 @@ class BookingController extends Controller
     public function show(Booking $booking)
     {
         // Authorization: Only booking owner, property owner, or admin can view
+        /** @var \App\Models\User $authUser */
+        $authUser = Auth::user();
         if (Auth::id() !== $booking->user_id && 
             Auth::id() !== $booking->property->user_id && 
-            !Auth::user()->isAdmin()) {
+            !$authUser->isAdmin()) {
             abort(403, 'Unauthorized action.');
         }
 
-        $booking->load(['property.images', 'property.owner', 'customer', 'payment']);
+        $booking->load(['property', 'property.owner']);
 
         return view('bookings.show', compact('booking'));
     }
@@ -172,6 +177,11 @@ class BookingController extends Controller
         // Authorization
         if (Auth::id() !== $booking->user_id) {
             abort(403, 'Unauthorized action.');
+        }
+
+        // Check if this is a review submission
+        if ($request->has('rating')) {
+            return $this->submitReview($request, $booking);
         }
 
         // Can only update pending bookings
@@ -230,9 +240,11 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         // Authorization: Booking owner or property owner can cancel
+        /** @var \App\Models\User $authUser */
+        $authUser = Auth::user();
         if (Auth::id() !== $booking->user_id && 
             Auth::id() !== $booking->property->user_id && 
-            !Auth::user()->isAdmin()) {
+            !$authUser->isAdmin()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -241,10 +253,7 @@ class BookingController extends Controller
             return back()->with('error', 'Cannot delete completed bookings.');
         }
 
-        // If booking was paid, handle refund logic (simplified here)
-        if ($booking->payment && $booking->payment->status === 'completed') {
-            return back()->with('error', 'Please contact support to cancel paid bookings.');
-        }
+        // Payment logic simplified - all bookings can be cancelled
 
         // Update status instead of hard delete for record keeping
         $booking->update(['status' => 'cancelled']);
@@ -259,7 +268,9 @@ class BookingController extends Controller
     public function confirm(Booking $booking)
     {
         // Authorization: Only property owner or admin can confirm
-        if (Auth::id() !== $booking->property->user_id && !Auth::user()->isAdmin()) {
+        /** @var \App\Models\User $authUser */
+        $authUser = Auth::user();
+        if (Auth::id() !== $booking->property->user_id && !$authUser->isAdmin()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -278,7 +289,9 @@ class BookingController extends Controller
     public function complete(Booking $booking)
     {
         // Authorization
-        if (Auth::id() !== $booking->property->user_id && !Auth::user()->isAdmin()) {
+        /** @var \App\Models\User $authUser */
+        $authUser = Auth::user();
+        if (Auth::id() !== $booking->property->user_id && !$authUser->isAdmin()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -289,5 +302,63 @@ class BookingController extends Controller
         $booking->update(['status' => 'completed']);
 
         return back()->with('success', 'Booking completed successfully!');
+    }
+
+    /**
+     * Submit a review for a completed booking.
+     */
+    private function submitReview(Request $request, Booking $booking)
+    {
+        // Only allow reviews for completed bookings
+        if ($booking->status !== 'completed' && !$booking->check_out->isPast()) {
+            return back()->with('error', 'Reviews can only be submitted for completed stays.');
+        }
+
+        // Check if already reviewed
+        if ($booking->hasReview()) {
+            return back()->with('error', 'You have already reviewed this booking.');
+        }
+
+        // Validate review data
+        $validated = $request->validate([
+            'rating' => 'required|integer|between:1,5',
+            'review_comment' => 'nullable|string|max:1000',
+        ]);
+
+        // Update booking with review
+        $booking->update([
+            'rating' => $validated['rating'],
+            'review_comment' => $validated['review_comment'],
+            'reviewed_at' => now(),
+        ]);
+
+        return redirect()->route('bookings.index')
+            ->with('success', 'Thank you for your review!');
+    }
+
+    /**
+     * Check property availability for given dates.
+     */
+    public function checkAvailability(Request $request)
+    {
+        $validated = $request->validate([
+            'property_id' => 'required|exists:properties,id',
+            'check_in' => 'required|date|after_or_equal:today',
+            'check_out' => 'required|date|after:check_in',
+        ]);
+
+        $hasOverlap = Booking::where('property_id', $validated['property_id'])
+            ->whereIn('status', ['confirmed', 'pending'])
+            ->where(function($query) use ($validated) {
+                $query->whereBetween('check_in', [$validated['check_in'], $validated['check_out']])
+                      ->orWhereBetween('check_out', [$validated['check_in'], $validated['check_out']])
+                      ->orWhere(function($q) use ($validated) {
+                          $q->where('check_in', '<=', $validated['check_in'])
+                            ->where('check_out', '>=', $validated['check_out']);
+                      });
+            })
+            ->exists();
+
+        return response()->json(['available' => !$hasOverlap]);
     }
 }

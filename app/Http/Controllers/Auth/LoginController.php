@@ -79,6 +79,7 @@ class LoginController extends Controller
      */
     protected function redirectToDashboard()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         if ($user->isAdmin()) {

@@ -7,6 +7,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string $role
+ * @property string|null $phone
+ * @property string|null $bio
+ * @property string|null $profile_image
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * 
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Property> $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Booking> $bookings
+ * 
+ * @method bool isOwner()
+ * @method bool isCustomer()
+ * @method bool isAdmin()
+ * 
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -25,6 +50,7 @@ class User extends Authenticatable
         'phone',
         'bio',
         'profile_image',
+        'date_of_birth',
     ];
     
     /**
@@ -43,58 +69,36 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class);
     }
     
-    /**
-     * Get the reviews written by the user.
-     */
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
+
     
-    /**
-     * Get the messages sent by the user.
-     */
-    public function sentMessages()
-    {
-        return $this->hasMany(Message::class, 'sender_id');
-    }
-    
-    /**
-     * Get the messages received by the user.
-     */
-    public function receivedMessages()
-    {
-        return $this->hasMany(Message::class, 'receiver_id');
-    }
-    
-    /**
-     * Get the user's favorite properties.
-     */
-    public function favorites()
-    {
-        return $this->belongsToMany(Property::class, 'favorites')->withTimestamps();
-    }
+
     
     /**
      * Check if user is an owner.
+     * 
+     * @return bool
      */
-    public function isOwner()
+    public function isOwner(): bool
     {
         return $this->role === 'owner';
     }
     
     /**
      * Check if user is a customer.
+     * 
+     * @return bool
      */
-    public function isCustomer()
+    public function isCustomer(): bool
     {
         return $this->role === 'customer';
     }
     
     /**
      * Check if user is an admin.
+     * 
+     * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }

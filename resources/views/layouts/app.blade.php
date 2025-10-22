@@ -63,7 +63,7 @@
 <body class="bg-cream">
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-2">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="/" class="flex items-center space-x-2">
@@ -72,7 +72,7 @@
                 </a>
                 
                 <!-- Search Bar (Desktop) -->
-                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                <div class="hidden md:flex flex-1 max-w-2xl mx-6">
                     <div class="w-full flex items-center bg-gray-100 rounded-full px-4 py-2 shadow-sm">
                         <input type="text" placeholder="Where are you going?" 
                                class="flex-1 bg-transparent outline-none px-2">
@@ -89,7 +89,7 @@
                 </div>
                 
                 <!-- Navigation Links -->
-                <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-4">
                     <a href="/properties" class="text-gray-700 hover:text-primary font-medium" style="transition: color 0.3s;">
                         Browse Properties
                     </a>
@@ -98,7 +98,7 @@
                         <a href="/login" class="text-gray-700 hover:text-primary font-medium" style="transition: color 0.3s;">
                             Login
                         </a>
-                        <a href="/register" class="px-6 py-2 rounded-full text-white btn-primary hover:opacity-90" style="background-color: #80A1BA;">
+                        <a href="/register" class="px-10 py-3 rounded-full text-white font-semibold shadow-md btn-primary whitespace-nowrap" style="background-color: #80A1BA; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(128, 161, 186, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
                             Sign Up
                         </a>
                     @else
@@ -115,9 +115,6 @@
                                     <a href="/owner/dashboard" class="block px-4 py-2 text-gray-700 hover:bg-opacity-20" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
                                         <i class="fa-solid fa-chart-line mr-2" style="color: #80A1BA;"></i> Dashboard
                                     </a>
-                                    <a href="/owner/properties" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
-                                        <i class="fa-solid fa-building mr-2" style="color: #80A1BA;"></i> My Properties
-                                    </a>
                                     <a href="/owner/bookings" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
                                         <i class="fa-solid fa-calendar-check mr-2" style="color: #80A1BA;"></i> Bookings
                                     </a>
@@ -125,16 +122,10 @@
                                     <a href="/customer/dashboard" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
                                         <i class="fa-solid fa-chart-line mr-2" style="color: #80A1BA;"></i> Dashboard
                                     </a>
-                                    <a href="/customer/bookings" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
+                                    <a href="/bookings" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
                                         <i class="fa-solid fa-calendar-days mr-2" style="color: #80A1BA;"></i> My Bookings
                                     </a>
-                                    <a href="/customer/favorites" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
-                                        <i class="fa-solid fa-heart mr-2" style="color: #80A1BA;"></i> Favorites
-                                    </a>
                                 @endif
-                                <a href="/messages" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
-                                    <i class="fa-solid fa-envelope mr-2" style="color: #80A1BA;"></i> Messages
-                                </a>
                                 <a href="/profile" class="block px-4 py-2 text-gray-700" style="transition: background 0.3s;" onmouseover="this.style.backgroundColor='#B4DEBD'" onmouseout="this.style.backgroundColor=''">
                                     <i class="fa-solid fa-user mr-2" style="color: #80A1BA;"></i> Profile
                                 </a>

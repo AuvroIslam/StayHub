@@ -22,6 +22,15 @@ class Booking extends Model
         'guests',
         'total_price',
         'status',
+        'rating',
+        'cleanliness_rating',
+        'communication_rating',
+        'checkin_rating',
+        'accuracy_rating',
+        'location_rating',
+        'value_rating',
+        'review_comment',
+        'reviewed_at',
     ];
 
     /**
@@ -33,6 +42,7 @@ class Booking extends Model
         'check_in' => 'date',
         'check_out' => 'date',
         'total_price' => 'decimal:2',
+        'reviewed_at' => 'datetime',
     ];
 
     /**
@@ -73,5 +83,21 @@ class Booking extends Model
     public function scopePending($query)
     {
         return $query->where('status', 'pending');
+    }
+
+    /**
+     * Check if this booking has been reviewed.
+     */
+    public function hasReview()
+    {
+        return !is_null($this->rating);
+    }
+
+    /**
+     * Scope a query to only include bookings with reviews.
+     */
+    public function scopeWithReviews($query)
+    {
+        return $query->whereNotNull('rating');
     }
 }

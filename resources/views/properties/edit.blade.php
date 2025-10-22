@@ -280,56 +280,34 @@
                 </div>
             </div>
             
-            {{-- Amenities Section --}}
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Amenities</h2>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    @foreach($amenities as $amenity)
-                        <div class="flex items-center">
-                            <input 
-                                type="checkbox" 
-                                id="amenity_{{ $amenity->id }}" 
-                                name="amenities[]" 
-                                value="{{ $amenity->id }}"
-                                {{ in_array($amenity->id, old('amenities', $propertyAmenities)) ? 'checked' : '' }}
-                                class="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                            >
-                            <label for="amenity_{{ $amenity->id }}" class="ml-2 text-gray-700">
-                                <i class="{{ $amenity->icon }} mr-1"></i> {{ $amenity->name }}
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            
             {{-- Form Actions --}}
-            <div class="flex justify-between items-center mt-8">
-                {{-- Delete Button (Demonstrates @method('DELETE')) --}}
-                <form method="POST" action="{{ route('properties.destroy', $property) }}" onsubmit="return confirm('Are you sure you want to delete this property?');">
-                    @csrf
-                    @method('DELETE')
-                    <button 
-                        type="submit" 
-                        class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-                    >
-                        Delete Property
-                    </button>
-                </form>
-                
-                <div class="flex space-x-4">
-                    <a href="{{ route('properties.show', $property) }}" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition">
-                        Cancel
-                    </a>
-                    <button 
-                        type="submit" 
-                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                    >
-                        Update Property
-                    </button>
-                </div>
+            <div class="flex justify-end space-x-4 mt-8">
+                <a href="{{ route('properties.show', $property) }}" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition">
+                    Cancel
+                </a>
+                <button 
+                    type="submit" 
+                    class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                    Update Property
+                </button>
             </div>
         </form>
+        
+        {{-- Delete Button (Separate Form) --}}
+        <div class="mt-6 pt-6 border-t border-gray-200">
+            <form method="POST" action="{{ route('properties.destroy', $property) }}" onsubmit="return confirm('Are you sure you want to delete this property? This action cannot be undone.');">
+                @csrf
+                @method('DELETE')
+                <button 
+                    type="submit" 
+                    class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                >
+                    <i class="fas fa-trash mr-2"></i>
+                    Delete Property
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
