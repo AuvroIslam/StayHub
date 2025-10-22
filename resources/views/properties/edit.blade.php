@@ -61,20 +61,21 @@
                 
                 {{-- Property Type --}}
                 <div class="mb-4">
-                    <label for="type" class="block text-gray-700 font-medium mb-2">Property Type *</label>
+                    <label for="property_type" class="block text-gray-700 font-medium mb-2">Property Type *</label>
                     <select 
-                        id="type" 
-                        name="type" 
-                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('type') border-red-500 @enderror"
+                        id="property_type" 
+                        name="property_type" 
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('property_type') border-red-500 @enderror"
                         required
                     >
+                        <option value="">Select Property Type</option>
                         @foreach(['apartment' => 'Apartment', 'house' => 'House', 'villa' => 'Villa', 'studio' => 'Studio', 'condo' => 'Condo', 'other' => 'Other'] as $value => $label)
-                            <option value="{{ $value }}" {{ old('type', $property->type) == $value ? 'selected' : '' }}>
+                            <option value="{{ $value }}" {{ old('property_type', $property->property_type) == $value ? 'selected' : '' }}>
                                 {{ $label }}
                             </option>
                         @endforeach
                     </select>
-                    @error('type')
+                    @error('property_type')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -276,6 +277,89 @@
                             step="0.01"
                             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
+                    </div>
+                </div>
+            </div>
+            
+            {{-- Image Upload Section --}}
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Property Images</h2>
+                <p class="text-gray-600 mb-4">Upload new images to replace existing ones (optional)</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {{-- Main Image --}}
+                    <div>
+                        <label for="image" class="block text-gray-700 font-medium mb-2">Main Image</label>
+                        @if($property->image)
+                            <div class="mb-2">
+                                <img src="{{ Storage::url($property->image) }}" alt="Current main image" class="w-full h-32 object-cover rounded-lg border">
+                                <p class="text-sm text-gray-500 mt-1">Current main image</p>
+                            </div>
+                        @endif
+                        <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image') border-red-500 @enderror">
+                        @error('image')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Image 2 --}}
+                    <div>
+                        <label for="image_2" class="block text-gray-700 font-medium mb-2">Image 2</label>
+                        @if($property->image_2)
+                            <div class="mb-2">
+                                <img src="{{ Storage::url($property->image_2) }}" alt="Current image 2" class="w-full h-32 object-cover rounded-lg border">
+                                <p class="text-sm text-gray-500 mt-1">Current image 2</p>
+                            </div>
+                        @endif
+                        <input type="file" id="image_2" name="image_2" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_2') border-red-500 @enderror">
+                        @error('image_2')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Image 3 --}}
+                    <div>
+                        <label for="image_3" class="block text-gray-700 font-medium mb-2">Image 3</label>
+                        @if($property->image_3)
+                            <div class="mb-2">
+                                <img src="{{ Storage::url($property->image_3) }}" alt="Current image 3" class="w-full h-32 object-cover rounded-lg border">
+                                <p class="text-sm text-gray-500 mt-1">Current image 3</p>
+                            </div>
+                        @endif
+                        <input type="file" id="image_3" name="image_3" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_3') border-red-500 @enderror">
+                        @error('image_3')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Image 4 --}}
+                    <div>
+                        <label for="image_4" class="block text-gray-700 font-medium mb-2">Image 4</label>
+                        @if($property->image_4)
+                            <div class="mb-2">
+                                <img src="{{ Storage::url($property->image_4) }}" alt="Current image 4" class="w-full h-32 object-cover rounded-lg border">
+                                <p class="text-sm text-gray-500 mt-1">Current image 4</p>
+                            </div>
+                        @endif
+                        <input type="file" id="image_4" name="image_4" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_4') border-red-500 @enderror">
+                        @error('image_4')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Image 5 --}}
+                    <div>
+                        <label for="image_5" class="block text-gray-700 font-medium mb-2">Image 5</label>
+                        @if($property->image_5)
+                            <div class="mb-2">
+                                <img src="{{ Storage::url($property->image_5) }}" alt="Current image 5" class="w-full h-32 object-cover rounded-lg border">
+                                <p class="text-sm text-gray-500 mt-1">Current image 5</p>
+                            </div>
+                        @endif
+                        <input type="file" id="image_5" name="image_5" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 @error('image_5') border-red-500 @enderror">
+                        @error('image_5')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>

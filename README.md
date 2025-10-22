@@ -1,61 +1,381 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# StayHub - Property Rental Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**A comprehensive Airbnb-style property rental platform built with Laravel 11**
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Overview](#-overview)
+- [Features](#-features)
+- [Technology Stack](#-technology-stack)
+- [System Requirements](#-system-requirements)
+- [Installation](#-installation)
+- [Database Setup](#-database-setup)
+- [Usage](#-usage)
+- [User Roles](#-user-roles)
+- [API Endpoints](#-api-endpoints)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🏠 Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+StayHub is a modern property rental management system that connects property owners with travelers. Built with Laravel 11 and featuring a responsive design, it provides a complete solution for managing property listings, bookings, and user interactions.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Key Highlights
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Multi-role system** with Admin, Property Owner, and Customer roles
+- **Comprehensive property management** with multiple image uploads
+- **Real-time booking system** with availability checking
+- **Responsive design** optimized for all devices
+- **Professional UI/UX** with Tailwind CSS
+- **Secure authentication** with role-based access control
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ✨ Features
 
-### Premium Partners
+### 🔐 Authentication & Authorization
+- User registration and login system
+- Role-based access control (Admin, Owner, Customer)
+- Secure password handling with Laravel's built-in authentication
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🏘️ Property Management
+- Create, edit, and delete property listings
+- Upload multiple high-quality images (5 per property)
+- Detailed property information (bedrooms, bathrooms, amenities)
+- Property status management (active/inactive)
+- Geographic information with address, city, state, country
 
-## Contributing
+### 📅 Booking System
+- Real-time availability checking
+- Booking creation and management
+- Multiple booking statuses (pending, confirmed, completed, cancelled)
+- Price calculation with guest count consideration
+- Booking history and tracking
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 👥 User Management
+- User profile management
+- Role-based dashboard views
+- Contact information and bio management
+- Email verification system
 
-## Code of Conduct
+### 🎨 User Interface
+- Modern, responsive design with Tailwind CSS
+- Professional color scheme with custom styling
+- Font Awesome icons for enhanced visual appeal
+- Mobile-optimized layouts
+- Interactive elements with hover effects
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🛠 Technology Stack
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Backend
+- **Framework**: Laravel 11.x
+- **Language**: PHP 8.2+
+- **Database**: MySQL 8.0+
+- **Authentication**: Laravel Sanctum
+- **File Storage**: Laravel Storage with Symlink
 
-## License
+### Frontend
+- **CSS Framework**: Tailwind CSS (CDN)
+- **Icons**: Font Awesome 6.5.1
+- **Template Engine**: Blade Templates
+- **JavaScript**: Vanilla JS with modern ES6+
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Development Tools
+- **Version Control**: Git
+- **Dependency Management**: Composer
+- **Database Migration**: Laravel Migrations
+- **Seeding**: Laravel Seeders with realistic data
+
+---
+
+## 📋 System Requirements
+
+- **PHP**: 8.2 or higher
+- **Composer**: 2.0 or higher
+- **MySQL**: 8.0 or higher
+- **Node.js**: 16.x or higher (for asset compilation, if needed)
+- **Web Server**: Apache 2.4+ or Nginx 1.18+
+
+### PHP Extensions Required
+- OpenSSL
+- PDO
+- Mbstring
+- Tokenizer
+- XML
+- JSON
+- BCMath
+- Ctype
+- Fileinfo
+- GD (for image processing)
+
+---
+
+## 🚀 Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/AuvroIslam/StayHub.git
+cd StayHub
+```
+
+### 2. Install Dependencies
+```bash
+composer install
+```
+
+### 3. Environment Configuration
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+```
+
+### 4. Configure Database
+Edit your `.env` file with your database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=stayhub_db
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+### 5. Create Storage Symlink
+```bash
+php artisan storage:link
+```
+
+---
+
+## 💾 Database Setup
+
+### 1. Create Database
+```bash
+# Create MySQL database
+mysql -u root -p
+CREATE DATABASE stayhub_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+exit
+```
+
+### 2. Run Migrations
+```bash
+php artisan migrate
+```
+
+### 3. Seed Database (Choose One Option)
+
+#### Option A: Comprehensive Airbnb-style Data (Recommended)
+```bash
+php artisan db:seed --class=AirbnbStyleSeeder
+```
+
+#### Option B: Simplified Test Data
+```bash
+php artisan db:seed --class=SimplifiedDatabaseSeeder
+```
+
+#### Option C: Minimal Basic Data
+```bash
+php artisan db:seed
+```
+
+### 4. Add Multiple Images to Properties
+```bash
+php artisan db:seed --class=AddMoreImagesSeeder
+```
+
+---
+
+## 💻 Usage
+
+### Start Development Server
+```bash
+php artisan serve
+```
+
+Visit `http://127.0.0.1:8000` in your browser.
+
+### Default Test Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Admin** | admin@stayhub.com | password |
+| **Property Owner** | john@stayhub.com | password |
+| **Property Owner** | sarah@stayhub.com | password |
+| **Customer** | alice@example.com | password |
+| **Customer** | bob@example.com | password |
+
+---
+
+## 👤 User Roles
+
+### 🔧 Administrator
+- Full system access and management
+- User account management
+- System monitoring and configuration
+- All property and booking oversight
+
+### 🏠 Property Owner
+- Create and manage property listings
+- Upload property images and details
+- Manage booking requests
+- View earnings and analytics
+- Access to owner dashboard
+
+### 🧳 Customer
+- Browse and search properties
+- Make booking requests
+- Manage booking history
+- Update profile information
+- Access to customer dashboard
+
+---
+
+## 🔗 API Endpoints
+
+### Authentication Routes
+```http
+GET    /login                    # Show login form
+POST   /login                    # Process login
+POST   /logout                   # User logout
+GET    /register                 # Show registration form
+POST   /register                 # Process registration
+```
+
+### Property Routes
+```http
+GET    /properties               # List all properties
+GET    /properties/create        # Show create form (Auth)
+POST   /properties               # Store new property (Auth)
+GET    /properties/{id}          # Show property details
+GET    /properties/{id}/edit     # Show edit form (Auth)
+PUT    /properties/{id}          # Update property (Auth)
+DELETE /properties/{id}          # Delete property (Auth)
+```
+
+### Booking Routes
+```http
+GET    /bookings                 # List user bookings (Auth)
+POST   /bookings                 # Create booking (Auth)
+GET    /bookings/{id}            # Show booking details (Auth)
+PUT    /bookings/{id}            # Update booking (Auth)
+DELETE /bookings/{id}            # Cancel booking (Auth)
+```
+
+### Dashboard Routes
+```http
+GET    /owner/dashboard          # Property owner dashboard (Auth)
+GET    /customer/dashboard       # Customer dashboard (Auth)
+GET    /admin/dashboard          # Admin dashboard (Auth)
+```
+
+---
+
+## 📁 Project Structure
+
+```
+StayHub/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Auth/
+│   │   │   ├── BookingController.php
+│   │   │   ├── DashboardController.php
+│   │   │   └── PropertyController.php
+│   │   └── Middleware/
+│   └── Models/
+│       ├── User.php
+│       ├── Property.php
+│       └── Booking.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+│       ├── AirbnbStyleSeeder.php
+│       ├── SimplifiedDatabaseSeeder.php
+│       └── AddMoreImagesSeeder.php
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php
+│       ├── auth/
+│       ├── properties/
+│       ├── bookings/
+│       └── owner/
+├── routes/
+│   └── web.php
+└── public/
+    └── storage/ (symlinked)
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions to StayHub! Please follow these steps:
+
+### 1. Fork the Repository
+```bash
+git fork https://github.com/AuvroIslam/StayHub.git
+```
+
+### 2. Create Feature Branch
+```bash
+git checkout -b feature/your-feature-name
+```
+
+### 3. Make Changes and Test
+```bash
+# Make your changes
+php artisan test  # Run tests if available
+```
+
+### 4. Commit and Push
+```bash
+git add .
+git commit -m "Add: your feature description"
+git push origin feature/your-feature-name
+```
+
+### 5. Create Pull Request
+Submit a pull request with detailed description of changes.
+
+### Code Standards
+- Follow PSR-12 coding standards
+- Write meaningful commit messages
+- Add comments for complex logic
+- Ensure responsive design compatibility
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with [Laravel Framework](https://laravel.com)
+- UI styled with [Tailwind CSS](https://tailwindcss.com)
+- Icons provided by [Font Awesome](https://fontawesome.com)
+- Images courtesy of [Unsplash](https://unsplash.com)
+
+---
+
+## 📞 Support
+
+For support, email [support@stayhub.com](mailto:support@stayhub.com) or create an issue in the GitHub repository.
+
+---
+
+**Made with ❤️ by [AuvroIslam](https://github.com/AuvroIslam)**

@@ -191,16 +191,24 @@ class PropertyController extends Controller
             'price_per_night' => 'required|numeric|min:1|max:10000',
             'status' => 'required|in:active,inactive',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_3' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_4' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_5' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($property->image && Storage::disk('public')->exists($property->image)) {
-                Storage::disk('public')->delete($property->image);
+        // Handle multiple image uploads
+        $imageFields = ['image', 'image_2', 'image_3', 'image_4', 'image_5'];
+        
+        foreach ($imageFields as $imageField) {
+            if ($request->hasFile($imageField)) {
+                // Delete old image if exists
+                if ($property->$imageField && Storage::disk('public')->exists($property->$imageField)) {
+                    Storage::disk('public')->delete($property->$imageField);
+                }
+                $imagePath = $request->file($imageField)->store('properties', 'public');
+                $validated[$imageField] = $imagePath;
             }
-            $imagePath = $request->file('image')->store('properties', 'public');
-            $validated['image'] = $imagePath;
         }
 
         // Update property
